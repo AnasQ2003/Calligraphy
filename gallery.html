@@ -1,0 +1,874 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Gallery | QuickCalligraphy</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+  <link href="https://unpkg.com/aos@2.3.4/dist/aos.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.11.4/css/lightbox.min.css" />
+  <style>
+    :root {
+      --bg-color: #fff;
+      --text-color: #000;
+      --nav-bg: #111;
+      --btn-primary: #ff6600;
+      --btn-secondary: #444;
+      --card-bg: #f4f4f4;
+      --glow-color: rgba(255, 102, 0, 0.7);
+    }
+
+    [data-theme="dark"] {
+      --bg-color: #121212;
+      --text-color: #f0f0f0;
+      --nav-bg: #000;
+      --btn-primary: #ff6600;
+      --btn-secondary: #333;
+      --card-bg: #1e1e1e;
+      --glow-color: rgba(255, 102, 0, 0.9);
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Segoe UI', sans-serif;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      background: var(--bg-color);
+      color: var(--text-color);
+      transition: background 0.5s, color 0.5s;
+      overflow-x: hidden;
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      top: -50%;
+      left: -50%;
+      width: 200%;
+      height: 200%;
+      background: radial-gradient(circle at center, var(--btn-primary) 0%, transparent 70%);
+      animation: rotateBackground 20s linear infinite;
+      opacity: 0.08;
+      z-index: 0;
+    }
+
+    @keyframes rotateBackground {
+      0% {
+        transform: rotate(0deg);
+      }
+
+      100% {
+        transform: rotate(360deg);
+      }
+    }
+
+    /* Floating particles animation */
+    .particles {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: -1;
+    }
+
+    .particle {
+      position: absolute;
+      background: var(--btn-primary);
+      border-radius: 50%;
+      opacity: 0.3;
+      animation: float linear infinite;
+    }
+
+    @keyframes float {
+      0% {
+        transform: translateY(0) rotate(0deg);
+      }
+
+      100% {
+        transform: translateY(-100vh) rotate(360deg);
+      }
+    }
+
+    /* Scroll indicator */
+    .scroll-progress {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 0%;
+      height: 5px;
+      background: var(--btn-primary);
+      z-index: 1000;
+      transition: width 0.1s;
+      box-shadow: 0 0 10px var(--glow-color);
+    }
+
+    nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 20px;
+      background: var(--nav-bg);
+      color: white;
+      flex-wrap: wrap;
+      position: relative;
+      z-index: 100;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+    }
+
+    .logo img {
+      height: 60px;
+      transition: transform 0.3s ease;
+      filter: drop-shadow(0 0 5px rgba(255, 255, 255, 0.3));
+    }
+
+    .logo img:hover {
+      transform: rotate(-5deg) scale(1.1);
+      filter: drop-shadow(0 0 10px var(--glow-color));
+    }
+
+    .nav-links {
+      list-style: none;
+      display: flex;
+      gap: 20px;
+    }
+
+    .nav-links li {
+      position: relative;
+    }
+
+    .nav-links a {
+      color: white;
+      text-decoration: none;
+      font-weight: bold;
+      position: relative;
+      transition: all 0.3s;
+      padding: 5px 10px;
+      border-radius: 5px;
+    }
+
+    .nav-links a::after {
+      content: '';
+      position: absolute;
+      width: 0;
+      height: 2px;
+      background: var(--btn-primary);
+      left: 0;
+      bottom: -4px;
+      transition: width 0.3s;
+    }
+
+    .nav-links a:hover {
+      text-shadow: 0 0 10px var(--glow-color);
+      background: rgba(255, 255, 255, 0.1);
+    }
+
+    .nav-links a:hover::after,
+    .nav-links a.active::after {
+      width: 100%;
+    }
+
+    .dropdown {
+      display: none;
+      position: absolute;
+      top: 100%;
+      left: 0;
+      background: var(--nav-bg);
+      padding: 10px 0;
+      border-radius: 5px;
+      min-width: 150px;
+      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+      animation: fadeInDown 0.3s ease-out forwards;
+      transform-origin: top center;
+    }
+
+    @keyframes fadeInDown {
+      0% {
+        opacity: 0;
+        transform: translateY(-10px);
+      }
+
+      100% {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .dropdown li a {
+      display: block;
+      padding: 10px 20px;
+      color: white;
+      text-decoration: none;
+      transition: all 0.3s;
+    }
+
+    .dropdown li a:hover {
+      background: var(--btn-secondary);
+      padding-left: 25px;
+      text-shadow: 0 0 8px white;
+    }
+
+    .nav-links li:hover .dropdown {
+      display: block;
+    }
+
+    .toggle-mode {
+      cursor: pointer;
+      padding: 10px;
+      background: var(--btn-secondary);
+      color: white;
+      border: none;
+      border-radius: 50%;
+      font-size: 1.2rem;
+      transition: all 0.3s ease;
+      transform: translateZ(0);
+      will-change: transform;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+    }
+
+    .toggle-mode:hover {
+      background: var(--btn-primary);
+      transform: scale(1.1) translateZ(0);
+      box-shadow: 0 0 20px var(--glow-color);
+    }
+
+    /* Video Hero Section */
+    .video-hero {
+      position: relative;
+      height: 70vh;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+    }
+
+    .video-hero video {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      z-index: -1;
+    }
+
+    .video-hero::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.3);
+      z-index: 0;
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 1;
+      color: white;
+      animation: fadeIn 2s ease-in;
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+      }
+
+      to {
+        opacity: 1;
+      }
+    }
+
+    .hero-content h1 {
+      font-size: 3rem;
+      margin-bottom: 15px;
+      text-shadow: 0 0 20px rgba(255, 255, 255, 0.5);
+    }
+
+    .hero-content p {
+      font-size: 1.2rem;
+      text-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
+    }
+
+    /* Gallery Section */
+    section {
+      padding: 60px 20px;
+      max-width: 1200px;
+      margin: auto;
+      position: relative;
+      z-index: 1;
+    }
+
+    .section-title {
+      font-size: 2.8rem;
+      text-align: center;
+      margin-bottom: 50px;
+      color: var(--btn-primary);
+      text-shadow: 2px 2px 10px var(--glow-color);
+      position: relative;
+    }
+
+    .section-title::after {
+      content: '';
+      position: absolute;
+      bottom: -10px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 80px;
+      height: 4px;
+      background: var(--btn-primary);
+      border-radius: 2px;
+      animation: underlinePulse 2s infinite;
+    }
+
+    @keyframes underlinePulse {
+      0% {
+        width: 80px;
+        opacity: 1;
+      }
+
+      50% {
+        width: 120px;
+        opacity: 0.7;
+      }
+
+      100% {
+        width: 80px;
+        opacity: 1;
+      }
+    }
+
+    /* Standardized Gallery Grid */
+    .gallery-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 30px;
+    }
+
+    /* Standardized Image Sizes */
+    .gallery-grid a img,
+    .card img {
+      width: 100%;
+      height: 250px;
+      object-fit: cover;
+      border-radius: 10px;
+      transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+    }
+
+    .gallery-grid a:hover img {
+      transform: scale(1.05);
+      box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3), 0 0 30px var(--glow-color);
+    }
+
+    /* Standardized Card Styles */
+    .card {
+      background: var(--card-bg);
+      border-radius: 15px;
+      padding: 20px;
+      text-align: center;
+      transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      position: relative;
+      overflow: hidden;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    }
+
+    .card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: var(--btn-primary);
+      opacity: 0;
+      transition: opacity 0.3s;
+      border-radius: 10px;
+      z-index: 1;
+      mix-blend-mode: overlay;
+    }
+
+    .card:hover::before {
+      opacity: 0.3;
+    }
+
+    .card:hover {
+      transform: translateY(-10px) scale(1.02);
+      box-shadow: 0 15px 40px rgba(0, 0, 0, 0.3), 0 0 30px var(--glow-color);
+    }
+
+    .card h3 {
+      font-size: 1.5rem;
+      margin: 15px 0 10px;
+      color: var(--btn-primary);
+      transition: all 0.3s;
+    }
+
+    .card:hover h3 {
+      text-shadow: 0 0 10px var(--glow-color);
+    }
+
+    .card p {
+      font-size: 1rem;
+      line-height: 1.6;
+      color: var(--text-color);
+    }
+
+    /* Tutorial Cards */
+    .tutorials {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 30px;
+      justify-content: center;
+    }
+
+    .tutorial-card {
+      flex: 1 1 300px;
+      background: var(--card-bg);
+      border-radius: 15px;
+      padding: 25px;
+      text-align: center;
+      transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    }
+
+    .tutorial-card:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 15px 40px rgba(0, 0, 0, 0.3), 0 0 30px var(--glow-color);
+    }
+
+    .tutorial-card h3 {
+      font-size: 1.5rem;
+      margin-bottom: 15px;
+      color: var(--btn-primary);
+    }
+
+    .tutorial-card p {
+      margin-bottom: 20px;
+      line-height: 1.6;
+    }
+
+    .tutorial-card a {
+      display: inline-block;
+      padding: 12px 25px;
+      background: var(--btn-primary);
+      color: white;
+      text-decoration: none;
+      border-radius: 5px;
+      transition: all 0.3s ease;
+      font-weight: bold;
+    }
+
+    .tutorial-card a:hover {
+      background: #e65c00;
+      box-shadow: 0 0 20px var(--glow-color);
+    }
+
+    /* Floating calligraphy elements */
+    .floating-calligraphy {
+      position: absolute;
+      opacity: 0.1;
+      font-size: 5rem;
+      z-index: -1;
+      animation: floatAround 20s infinite linear;
+      pointer-events: none;
+    }
+
+    @keyframes floatAround {
+      0% {
+        transform: translate(0, 0) rotate(0deg);
+      }
+
+      25% {
+        transform: translate(50px, 50px) rotate(90deg);
+      }
+
+      50% {
+        transform: translate(100px, 0) rotate(180deg);
+      }
+
+      75% {
+        transform: translate(50px, -50px) rotate(270deg);
+      }
+
+      100% {
+        transform: translate(0, 0) rotate(360deg);
+      }
+    }
+
+    footer {
+      background: var(--nav-bg);
+      color: white;
+      text-align: center;
+      padding: 30px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    footer::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 5px;
+      background: linear-gradient(90deg, var(--btn-primary), transparent);
+      animation: footerGlow 3s infinite alternate;
+    }
+
+    @keyframes footerGlow {
+      0% {
+        opacity: 0.3;
+      }
+
+      100% {
+        opacity: 1;
+      }
+    }
+
+    footer p {
+      position: relative;
+      animation: floatText 5s infinite ease-in-out;
+    }
+
+    @keyframes floatText {
+
+      0%,
+      100% {
+        transform: translateY(0);
+      }
+
+      50% {
+        transform: translateY(-5px);
+      }
+    }
+
+    @media (max-width: 768px) {
+      .nav-links {
+        flex-direction: column;
+        width: 100%;
+        gap: 10px;
+        margin-top: 10px;
+      }
+
+      .hero-content h1 {
+        font-size: 2rem;
+      }
+
+      .section-title {
+        font-size: 2rem;
+      }
+
+      .gallery-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <!-- Floating particles -->
+  <div class="particles" id="particles"></div>
+
+  <!-- Scroll progress indicator -->
+  <div class="scroll-progress" id="scrollProgress"></div>
+
+  <!-- Navbar -->
+  <nav>
+    <div class="logo">
+      <img src="logo.png" alt="QuickCalligraphy Logo" />
+    </div>
+    <ul class="nav-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="about.html">About</a></li>
+      <li>
+        <a href="categories.html">Categories</a>
+        <ul class="dropdown">
+          <li><a href="kids.html">Kids</a></li>
+          <li><a href="normal.html">Normal</a></li>
+          <li><a href="elders.html">Elders</a></li>
+        </ul>
+      </li>
+      <li><a href="gallery.html" class="active">Gallery</a></li>
+      <li><a href="contact.html">Contact</a></li>
+    </ul>
+    <button class="toggle-mode" onclick="toggleTheme()" aria-label="Toggle dark mode">🌓</button>
+  </nav>
+
+  <!-- Video Hero Section -->
+  <div class="video-hero">
+    <video autoplay muted loop>
+      <source src="gv.mp4" type="video/mp4" />
+      Your browser does not support the video tag.
+    </video>
+    <div class="hero-content" data-aos="fade-up">
+      <h1>Explore the Art of Calligraphy</h1>
+      <p data-aos="fade-up" data-aos-delay="300">Discover styles, techniques, and inspiration from artists around the
+        world.</p>
+    </div>
+    <!-- Floating calligraphy elements -->
+    <div class="floating-calligraphy" style="top:20%; left:10%;">書</div>
+    <div class="floating-calligraphy" style="top:70%; left:80%;">خط</div>
+    <div class="floating-calligraphy" style="top:40%; left:60%;">A</div>
+    <div class="floating-calligraphy" style="top:60%; left:20%;">α</div>
+  </div>
+
+  <!-- Gallery Section -->
+  <section data-aos="fade-up">
+    <h1 class="section-title">Calligraphy Gallery</h1>
+    <div class="gallery-grid">
+      <a href="categories.html" data-lightbox="gallery" data-aos="zoom-in"><img src="islamic.jpeg"
+          alt="Islamic Calligraphy" /></a>
+      <a href="categories.html" data-lightbox="gallery" data-aos="zoom-in" data-aos-delay="100"><img src="indic.jpg"
+          alt="Indic Calligraphy" /></a>
+      <a href="categories.html" data-lightbox="gallery" data-aos="zoom-in" data-aos-delay="200"><img src="italic.jpg"
+          alt="Italic Calligraphy" /></a>
+      <a href="categories.html" data-lightbox="gallery" data-aos="zoom-in" data-aos-delay="300"><img src="graffiti.avif"
+          alt="Graffiti Calligraphy" /></a>
+      <a href="categories.html" data-lightbox="gallery" data-aos="zoom-in" data-aos-delay="400"><img src="faux.jpeg"
+          alt="Faux Calligraphy" /></a>
+      <a href="categories.html" data-lightbox="gallery" data-aos="zoom-in" data-aos-delay="500"><img src="graphic.webp"
+          alt="Graphic Calligraphy" /></a>
+      <a href="categories.html" data-lightbox="gallery" data-aos="zoom-in" data-aos-delay="600"><img src="brush.jpeg"
+          alt="Brush Calligraphy" /></a>
+      <a href="categories.html" data-lightbox="gallery" data-aos="zoom-in" data-aos-delay="700"><img
+          src="kidscrayon.jpeg" alt="Kids Calligraphy" /></a>
+      <a href="categories.html" data-lightbox="gallery" data-aos="zoom-in" data-aos-delay="800"><img src="gothic.jpg"
+          alt="Gothic Calligraphy" /></a>
+    </div>
+  </section>
+
+  <!-- Featured Artists -->
+  <section data-aos="fade-up">
+    <h1 class="section-title">Featured Artists</h1>
+    <div class="gallery-grid">
+      <div class="card" data-aos="fade-up">
+        <img src="wang xizhi.jpg" alt="Wang Xizhi" />
+        <h3>Wang Xizhi (China, 303–361)</h3>
+        <p>Known as the Sage of Calligraphy, he's one of the most celebrated figures in Chinese calligraphy history.</p>
+      </div>
+      <div class="card" data-aos="fade-up" data-aos-delay="100">
+        <img src="inb muqlah.jpg" alt="Ibn Muqlah" />
+        <h3>Ibn Muqlah (Iraq, 886–940)</h3>
+        <p>A key figure in the development of Arabic calligraphy, particularly the Naskh and Thuluth scripts.</p>
+      </div>
+      <div class="card" data-aos="fade-up" data-aos-delay="200">
+        <img src="edward johnston.webp" alt="Edward Johnston" />
+        <h3>Edward Johnston (UK, 1872–1944)</h3>
+        <p>Often considered the father of modern Western calligraphy; designed the Johnston typeface for the London
+          Underground.</p>
+      </div>
+      <div class="card" data-aos="fade-up" data-aos-delay="300">
+        <img src="lucs barcellona.jpg" alt="Luca Barcellona" />
+        <h3>Luca Barcellona (Italy)</h3>
+        <p>A modern calligrapher combining graffiti, typography, and classical calligraphy in expressive compositions.
+        </p>
+      </div>
+      <div class="card" data-aos="fade-up" data-aos-delay="400">
+        <img src="Uemura_Shoen.png" alt="Shoen Uemura" />
+        <h3>Shoen Uemura (Japan, 1875–1949)</h3>
+        <p>Blended traditional Japanese calligraphy (Shodo) with painting, making expressive and spiritual artworks.</p>
+      </div>
+      <div class="card" data-aos="fade-up" data-aos-delay="500">
+        <img src="yukimi annand.jpg" alt="Yukimi Annand" />
+        <h3>Yukimi Annand (USA/Japan)</h3>
+        <p>A contemporary calligrapher blending gestural abstraction and Western calligraphy, with a focus on texture
+          and form.</p>
+      </div>
+      <div class="card" data-aos="fade-up" data-aos-delay="600">
+        <img src="hassan massoudy.jpeg" alt="Hassan Massoudy" />
+        <h3>Hassan Massoudy (Iraq/France)</h3>
+        <p>Fuses traditional Arabic script with modern artistic expression, often featuring philosophical or poetic
+          quotes.</p>
+      </div>
+      <div class="card" data-aos="fade-up" data-aos-delay="700">
+        <img src="julian waters.jpeg" alt="Julian Waters" />
+        <h3>Julian Waters (USA)</h3>
+        <p>A renowned Western calligrapher known for classical and contemporary scripts, design, and teaching.</p>
+      </div>
+      <div class="card" data-aos="fade-up" data-aos-delay="900">
+        <img src="hermann.jpeg" alt="Julian Waters" />
+        <h3>Hermann Zapf (Germany, 1918–2015)</h3>
+        <p>A master typographer and calligrapher who designed iconic fonts like Palatino and Zapfino. Bridged
+          traditional calligraphy with digital typography.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Calligraphy Styles -->
+  <section data-aos="fade-up">
+    <h1 class="section-title">Types of Calligraphy</h1>
+    <div class="gallery-grid">
+      <div class="card" data-aos="fade-up">
+        <img src="gothic.jpg" alt="Gothic Calligraphy">
+        <h3>Gothic</h3>
+        <p>Sharp, dramatic lines with medieval aesthetic from 12th-century Europe.</p>
+      </div>
+      <div class="card" data-aos="fade-up" data-aos-delay="100">
+        <img src="copperplate.jpg" alt="Copperplate Calligraphy">
+        <h3>Copperplate</h3>
+        <p>Elegant, flowing curves using a pointed nib; 18th-century origin.</p>
+      </div>
+      <div class="card" data-aos="fade-up" data-aos-delay="200">
+        <img src="arabic.jpeg" alt="Arabic Calligraphy">
+        <h3>Arabic</h3>
+        <p>Ornamental and spiritual, central to Islamic art.</p>
+      </div>
+      <div class="card" data-aos="fade-up" data-aos-delay="300">
+        <img src="japnese.jpg" alt="Chinese Calligraphy">
+        <h3>Chinese</h3>
+        <p>One of the oldest forms; emphasizes brush control and rhythm.</p>
+      </div>
+      <div class="card" data-aos="fade-up" data-aos-delay="400">
+        <img src="modern.jpeg" alt="Modern Calligraphy">
+        <h3>Modern</h3>
+        <p>Blends cursive handwriting with artistic flair and freedom.</p>
+      </div>
+      <div class="card" data-aos="fade-up" data-aos-delay="500">
+        <img src="brush.jpeg" alt="Brush Script">
+        <h3>Brush Script</h3>
+        <p>Uses expressive strokes with a brush; popular in East Asia.</p>
+      </div>
+      <div class="card" data-aos="fade-up" data-aos-delay="600">
+        <img src="italic.jpg" alt="Italic Calligraphy">
+        <h3>Italic</h3>
+        <p>A Renaissance-era style known for its slightly slanted and smooth strokes.</p>
+      </div>
+      <div class="card" data-aos="fade-up" data-aos-delay="700">
+        <img src="brush.jpeg" alt="Faux Calligraphy">
+        <h3>Faux Calligraphy</h3>
+        <p>This friendly technique uses regular pens to mimic the look of calligraphy.</p>
+      </div>
+      <div class="card" data-aos="fade-up" data-aos-delay="800">
+        <img src="urdu.jpg" alt="Urdu Calligraphy">
+        <h3>Urdu Calligraphy</h3>
+        <p>A fusion of Nastaliq and artistic flair, Urdu calligraphy captures poetic expression and visual grace.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Tutorials -->
+  <section data-aos="fade-up">
+    <h1 class="section-title">Calligraphy Tutorials & Downloads</h1>
+    <div class="tutorials">
+      <div class="tutorial-card" data-aos="fade-up">
+        <h3>Getting Started Guide</h3>
+        <p>Perfect for beginners. Learn strokes, spacing, and basic scripts.</p>
+        <a href="calligraphy.pdf" download="QuickCalligraphy_Beginners_Guide.pdf">Download PDF</a>
+      </div>
+      <div class="tutorial-card" data-aos="fade-up" data-aos-delay="100">
+        <h3>Advanced Lettering</h3>
+        <p>Detailed techniques and flourishes for professional results.</p>
+        <a href="calligraphy.pdf" download="QuickCalligraphy_Advanced_Guide.pdf">Download PDF</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <p>&copy; 2025 QuickCalligraphy | All rights reserved by Qureshi Sahab.</p>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.11.4/js/lightbox.min.js"></script>
+  <script>
+    // Initialize AOS
+    AOS.init({
+      duration: 1000,
+      once: true,
+      easing: 'ease-out-back',
+      offset: 120
+    });
+
+    // Create floating particles
+    function createParticles() {
+      const particlesContainer = document.getElementById('particles');
+      const particleCount = 30;
+
+      for (let i = 0; i < particleCount; i++) {
+        const particle = document.createElement('div');
+        particle.classList.add('particle');
+
+        // Random size between 2px and 6px
+        const size = Math.random() * 4 + 2;
+        particle.style.width = `${size}px`;
+        particle.style.height = `${size}px`;
+
+        // Random position
+        particle.style.left = `${Math.random() * 100}%`;
+        particle.style.top = `${Math.random() * 100}%`;
+
+        // Random animation duration between 10s and 30s
+        const duration = Math.random() * 20 + 10;
+        particle.style.animationDuration = `${duration}s`;
+
+        // Random delay
+        particle.style.animationDelay = `${Math.random() * 10}s`;
+
+        particlesContainer.appendChild(particle);
+      }
+    }
+
+    // Scroll progress indicator
+    function updateScrollProgress() {
+      const scrollProgress = document.getElementById('scrollProgress');
+      const scrollTop = document.documentElement.scrollTop;
+      const scrollHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+      const scrollPercentage = (scrollTop / scrollHeight) * 100;
+      scrollProgress.style.width = `${scrollPercentage}%`;
+    }
+
+    // Theme toggle function
+    function toggleTheme() {
+      const currentTheme = document.documentElement.getAttribute('data-theme');
+      const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+      document.documentElement.setAttribute('data-theme', newTheme);
+      localStorage.setItem('theme', newTheme);
+
+      // Add animation to theme toggle
+      const toggleBtn = document.querySelector('.toggle-mode');
+      toggleBtn.style.transform = 'scale(1.2)';
+      setTimeout(() => {
+        toggleBtn.style.transform = 'scale(1)';
+      }, 300);
+    }
+
+    // On page load
+    window.onload = () => {
+      const savedTheme = localStorage.getItem('theme') || 'light';
+      document.documentElement.setAttribute('data-theme', savedTheme);
+
+      // Create particles
+      createParticles();
+
+      // Set up scroll progress indicator
+      window.addEventListener('scroll', updateScrollProgress);
+      updateScrollProgress();
+
+      // Add hover effects to all interactive elements
+      document.querySelectorAll('a, button, .card, .tutorial-card').forEach(el => {
+        el.addEventListener('mouseenter', () => {
+          el.style.transform = 'scale(1.02)';
+          el.style.transition = 'all 0.3s ease';
+        });
+        el.addEventListener('mouseleave', () => {
+          el.style.transform = 'scale(1)';
+        });
+      });
+    };
+  </script>
+</body>
+
+</html>

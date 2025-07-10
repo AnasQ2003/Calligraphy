@@ -1,0 +1,933 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Calligraphy for Kids | QuickCalligraphy</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
+  <link href="https://unpkg.com/aos@2.3.4/dist/aos.css" rel="stylesheet">
+  <style>
+    :root {
+      --bg-color: #fff;
+      --text-color: #000;
+      --nav-bg: #111;
+      --btn-primary: #ff6600;
+      --btn-secondary: #444;
+      --card-bg: #f4f4f4;
+      --input-bg: #f4f4f4;
+      --glow-color: rgba(255, 102, 0, 0.7);
+    }
+    [data-theme="dark"] {
+      --bg-color: #121212;
+      --text-color: #f0f0f0;
+      --nav-bg: #000;
+      --btn-primary: #ff6600;
+      --btn-secondary: #333;
+      --card-bg: #1e1e1e;
+      --input-bg: #2a2a2a;
+      --glow-color: rgba(255, 102, 0, 0.9);
+    }
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Segoe UI', sans-serif;
+    }
+    html {
+      scroll-behavior: smooth;
+    }
+    body {
+      background: var(--bg-color);
+      color: var(--text-color);
+      transition: background 0.5s, color 0.5s;
+      overflow-x: hidden;
+    }
+    body::before {
+      content: "";
+      position: fixed;
+      top: -50%;
+      left: -50%;
+      width: 200%;
+      height: 200%;
+      background: radial-gradient(circle at center, var(--btn-primary) 0%, transparent 70%);
+      animation: rotateBackground 20s linear infinite;
+      opacity: 0.08;
+      z-index: 0;
+    }
+    @keyframes rotateBackground {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+
+    /* Floating particles animation */
+    .particles {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: -1;
+    }
+    
+    .particle {
+      position: absolute;
+      background: var(--btn-primary);
+      border-radius: 50%;
+      opacity: 0.3;
+      animation: float linear infinite;
+    }
+    
+    @keyframes float {
+      0% { transform: translateY(0) rotate(0deg); }
+      100% { transform: translateY(-100vh) rotate(360deg); }
+    }
+
+    /* Scroll indicator */
+    .scroll-progress {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 0%;
+      height: 5px;
+      background: var(--btn-primary);
+      z-index: 1000;
+      transition: width 0.1s;
+      box-shadow: 0 0 10px var(--glow-color);
+    }
+
+    nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 20px;
+      background: var(--nav-bg);
+      color: white;
+      flex-wrap: wrap;
+      position: relative;
+      z-index: 100;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+    }
+    .logo img {
+      height: 60px;
+      transition: transform 0.3s ease;
+      filter: drop-shadow(0 0 5px rgba(255,255,255,0.3));
+    }
+    .logo img:hover {
+      transform: rotate(-5deg) scale(1.1);
+      filter: drop-shadow(0 0 10px var(--glow-color));
+    }
+    .nav-links {
+      list-style: none;
+      display: flex;
+      gap: 20px;
+    }
+    .nav-links li {
+      position: relative;
+    }
+    .nav-links a {
+      color: white;
+      text-decoration: none;
+      font-weight: bold;
+      position: relative;
+      transition: all 0.3s;
+      padding: 5px 10px;
+      border-radius: 5px;
+    }
+    .nav-links a::after {
+      content: '';
+      position: absolute;
+      width: 0;
+      height: 2px;
+      background: var(--btn-primary);
+      left: 0;
+      bottom: -4px;
+      transition: width 0.3s;
+    }
+    .nav-links a:hover {
+      text-shadow: 0 0 10px var(--glow-color);
+      background: rgba(255,255,255,0.1);
+    }
+    .nav-links a:hover::after,
+    .nav-links a.active::after {
+      width: 100%;
+    }
+    .dropdown {
+      display: none;
+      position: absolute;
+      top: 100%;
+      left: 0;
+      background: var(--nav-bg);
+      padding: 10px 0;
+      border-radius: 5px;
+      min-width: 150px;
+      box-shadow: 0 10px 20px rgba(0,0,0,0.3);
+      animation: fadeInDown 0.3s ease-out forwards;
+      transform-origin: top center;
+    }
+    @keyframes fadeInDown {
+      0% { opacity: 0; transform: translateY(-10px); }
+      100% { opacity: 1; transform: translateY(0); }
+    }
+    .dropdown li a {
+      display: block;
+      padding: 10px 20px;
+      color: white;
+      text-decoration: none;
+      transition: all 0.3s;
+    }
+    .dropdown li a:hover {
+      background: var(--btn-secondary);
+      padding-left: 25px;
+      text-shadow: 0 0 8px white;
+    }
+    .nav-links li:hover .dropdown {
+      display: block;
+    }
+    .toggle-mode {
+      cursor: pointer;
+      padding: 10px;
+      background: var(--btn-secondary);
+      color: white;
+      border: none;
+      border-radius: 50%;
+      font-size: 1.2rem;
+      transition: all 0.3s ease;
+      transform: translateZ(0);
+      will-change: transform;
+      box-shadow: 0 0 10px rgba(0,0,0,0.3);
+    }
+    .toggle-mode:hover {
+      background: var(--btn-primary);
+      transform: scale(1.1) translateZ(0);
+      box-shadow: 0 0 20px var(--glow-color);
+    }
+
+    /* Video Hero Section */
+    .video-hero {
+      position: relative;
+      height: 70vh;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+    }
+    .video-hero video {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      z-index: -1;
+    }
+    .video-hero::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0,0,0,0.3);
+      z-index: 0;
+    }
+    .hero-content {
+      position: relative;
+      z-index: 1;
+      color: white;
+      animation: fadeIn 2s ease-in;
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+    .hero-content h1 {
+      font-size: 3rem;
+      margin-bottom: 15px;
+      text-shadow: 0 0 20px rgba(255,255,255,0.5);
+    }
+    .hero-content p {
+      font-size: 1.2rem;
+      text-shadow: 0 0 10px rgba(255,255,255,0.3);
+    }
+
+    /* Section Styling */
+    section {
+      padding: 60px 20px;
+      max-width: 1200px;
+      margin: auto;
+      position: relative;
+      z-index: 1;
+    }
+    .section-title {
+      font-size: 2.8rem;
+      text-align: center;
+      margin-bottom: 50px;
+      color: var(--btn-primary);
+      text-shadow: 2px 2px 10px var(--glow-color);
+      position: relative;
+    }
+    .section-title::after {
+      content: '';
+      position: absolute;
+      bottom: -10px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 80px;
+      height: 4px;
+      background: var(--btn-primary);
+      border-radius: 2px;
+      animation: underlinePulse 2s infinite;
+    }
+    @keyframes underlinePulse {
+      0% { width: 80px; opacity: 1; }
+      50% { width: 120px; opacity: 0.7; }
+      100% { width: 80px; opacity: 1; }
+    }
+
+    /* Kids Gallery Section */
+    .kids-gallery {
+      display: flex;
+      flex-direction: column;
+      gap: 60px;
+      margin-top: 40px;
+    }
+    
+    .gallery-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 40px;
+      background: var(--card-bg);
+      padding: 30px;
+      border-radius: 15px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+      transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    }
+    
+    .gallery-row:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 15px 40px rgba(0,0,0,0.3), 0 0 30px var(--glow-color);
+    }
+    
+    .gallery-row.reverse {
+      flex-direction: row-reverse;
+    }
+    
+    .gallery-image, .gallery-content {
+      flex: 1 1 45%;
+      min-width: 300px;
+    }
+    
+    .gallery-image {
+      overflow: hidden;
+      border-radius: 12px;
+      box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+    }
+    
+    .gallery-image img {
+      width: 100%;
+      height: auto;
+      object-fit: cover;
+      transition: transform 0.5s ease, filter 0.3s ease;
+      display: block;
+    }
+    
+    .gallery-row:hover .gallery-image img {
+      transform: scale(1.05);
+      filter: brightness(1.05);
+    }
+    
+    .gallery-content {
+      padding: 20px;
+    }
+    
+    .gallery-content h3 {
+      font-size: 1.8rem;
+      color: var(--btn-primary);
+      margin-bottom: 15px;
+      text-shadow: 1px 1px 5px var(--glow-color);
+    }
+    
+    .gallery-content p {
+      font-size: 1.1rem;
+      line-height: 1.8;
+      margin-bottom: 20px;
+    }
+    
+    .benefits-list {
+      list-style-type: none;
+      margin-top: 15px;
+    }
+    
+    .benefits-list li {
+      padding: 8px 0;
+      padding-left: 30px;
+      position: relative;
+      font-size: 1rem;
+    }
+    
+    .benefits-list li::before {
+      content: '✓';
+      position: absolute;
+      left: 0;
+      color: var(--btn-primary);
+      font-weight: bold;
+    }
+    
+    .age-tag {
+      display: inline-block;
+      background: var(--btn-primary);
+      color: white;
+      padding: 5px 15px;
+      border-radius: 20px;
+      font-size: 0.9rem;
+      margin-top: 10px;
+      box-shadow: 0 0 10px var(--glow-color);
+    }
+
+    /* Features Section */
+    .features-section {
+      margin: 80px auto;
+      max-width: 1000px;
+    }
+    
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 30px;
+      margin-top: 40px;
+    }
+    
+    .feature-card {
+      background: var(--card-bg);
+      padding: 30px;
+      border-radius: 15px;
+      text-align: center;
+      transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+    }
+    
+    .feature-card:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 15px 40px rgba(0,0,0,0.3), 0 0 30px var(--glow-color);
+    }
+    
+    .feature-icon {
+      font-size: 2.5rem;
+      color: var(--btn-primary);
+      margin-bottom: 20px;
+      transition: all 0.3s ease;
+    }
+    
+    .feature-card:hover .feature-icon {
+      transform: scale(1.2);
+      text-shadow: 0 0 15px var(--glow-color);
+    }
+    
+    .feature-card h3 {
+      font-size: 1.5rem;
+      margin-bottom: 15px;
+      color: var(--btn-primary);
+    }
+    
+    .feature-card p {
+      font-size: 1.1rem;
+      line-height: 1.6;
+    }
+
+    /* Testimonials Section */
+    .testimonials-section {
+      max-width: 1000px;
+      margin: 80px auto;
+      padding: 0 20px;
+    }
+    
+    .testimonial-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 30px;
+    }
+    
+    .testimonial-card {
+      background: var(--card-bg);
+      padding: 30px;
+      border-radius: 15px;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+      transition: all 0.5s ease;
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .testimonial-card::before {
+      content: '"';
+      position: absolute;
+      top: 10px;
+      left: 20px;
+      font-size: 5rem;
+      color: var(--btn-primary);
+      opacity: 0.1;
+      font-family: serif;
+      line-height: 1;
+    }
+    
+    .testimonial-card:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 15px 40px rgba(0,0,0,0.3), 0 0 30px var(--glow-color);
+    }
+    
+    .testimonial-text {
+      font-style: italic;
+      font-size: 1.1rem;
+      line-height: 1.6;
+      margin-bottom: 20px;
+      position: relative;
+      z-index: 1;
+    }
+    
+    .testimonial-author {
+      font-weight: bold;
+      color: var(--btn-primary);
+      text-align: right;
+    }
+    
+    .testimonial-author span {
+      display: block;
+      font-weight: normal;
+      font-size: 0.9rem;
+      color: var(--text-color);
+      opacity: 0.8;
+    }
+
+    /* CTA Section */
+    .cta-section {
+      text-align: center;
+      margin: 80px auto;
+      max-width: 800px;
+      padding: 40px;
+      background: var(--card-bg);
+      border-radius: 15px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+      transition: all 0.5s ease;
+    }
+    
+    .cta-section:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 15px 40px rgba(0,0,0,0.3), 0 0 30px var(--glow-color);
+    }
+    
+    .cta-section h2 {
+      font-size: 2rem;
+      margin-bottom: 20px;
+      color: var(--btn-primary);
+    }
+    
+    .cta-section p {
+      font-size: 1.1rem;
+      margin-bottom: 30px;
+    }
+    
+    .cta-button {
+      display: inline-block;
+      background: var(--btn-primary);
+      color: white;
+      padding: 15px 30px;
+      border-radius: 8px;
+      text-decoration: none;
+      font-weight: bold;
+      font-size: 1.1rem;
+      transition: all 0.3s ease;
+      box-shadow: 0 5px 15px rgba(255,102,0,0.3);
+    }
+    
+    .cta-button:hover {
+      background: #e65c00;
+      transform: translateY(-3px);
+      box-shadow: 0 8px 20px var(--glow-color);
+    }
+
+    /* Floating calligraphy elements */
+    .floating-calligraphy {
+      position: absolute;
+      opacity: 0.1;
+      font-size: 5rem;
+      z-index: -1;
+      animation: floatAround 20s infinite linear;
+      pointer-events: none;
+    }
+    @keyframes floatAround {
+      0% { transform: translate(0, 0) rotate(0deg); }
+      25% { transform: translate(50px, 50px) rotate(90deg); }
+      50% { transform: translate(100px, 0) rotate(180deg); }
+      75% { transform: translate(50px, -50px) rotate(270deg); }
+      100% { transform: translate(0, 0) rotate(360deg); }
+    }
+
+    /* Footer */
+    footer {
+      background: var(--nav-bg);
+      color: white;
+      text-align: center;
+      padding: 30px;
+      position: relative;
+      overflow: hidden;
+    }
+    footer::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 5px;
+      background: linear-gradient(90deg, var(--btn-primary), transparent);
+      animation: footerGlow 3s infinite alternate;
+    }
+    @keyframes footerGlow {
+      0% { opacity: 0.3; }
+      100% { opacity: 1; }
+    }
+    footer p {
+      position: relative;
+      animation: floatText 5s infinite ease-in-out;
+    }
+    @keyframes floatText {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-5px); }
+    }
+
+    /* Responsive Design */
+    @media (max-width: 768px) {
+      .nav-links {
+        flex-direction: column;
+        width: 100%;
+        gap: 10px;
+        margin-top: 10px;
+      }
+      .hero-content h1 {
+        font-size: 2rem;
+      }
+      .section-title {
+        font-size: 2rem;
+      }
+      .gallery-row, .gallery-row.reverse {
+        flex-direction: column;
+      }
+      .gallery-content {
+        padding: 20px 0;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Floating particles -->
+  <div class="particles" id="particles"></div>
+  
+  <!-- Scroll progress indicator -->
+  <div class="scroll-progress" id="scrollProgress"></div>
+
+  <!-- Navbar -->
+  <nav>
+    <div class="logo">
+      <img src="logo.png" alt="QuickCalligraphy Logo" />
+    </div>
+    <ul class="nav-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="about.html">About</a></li>
+      <li>
+        <a href="categories.html">Categories</a>
+        <ul class="dropdown">
+          <li><a href="kids.html" class="active">Kids</a></li>
+          <li><a href="normal.html">Normal</a></li>
+          <li><a href="elders.html">Elders</a></li>
+        </ul>
+      </li>
+      <li><a href="gallery.html">Gallery</a></li>
+      <li><a href="contact.html">Contact</a></li>
+    </ul>
+    <button class="toggle-mode" onclick="toggleTheme()" aria-label="Toggle dark mode">🌓</button>
+  </nav>
+
+  <!-- Video Hero Section -->
+  <div class="video-hero">
+    <video autoplay muted loop>
+      <source src="kidsvideo.mp4" type="video/mp4" />
+      Your browser does not support the video tag.
+    </video>
+    <div class="hero-content" data-aos="fade-up">
+      <h1>Calligraphy Adventures for Kids</h1>
+      <p data-aos="fade-up" data-aos-delay="300">Fun, creative lettering styles that make learning calligraphy an exciting journey for young artists!</p>
+    </div>
+    <!-- Floating calligraphy elements -->
+    <div class="floating-calligraphy" style="top:20%; left:10%;">A</div>
+    <div class="floating-calligraphy" style="top:70%; left:80%;">B</div>
+    <div class="floating-calligraphy" style="top:40%; left:60%;">C</div>
+    <div class="floating-calligraphy" style="top:60%; left:20%;">D</div>
+  </div>
+
+  <!-- Kids Gallery Section -->
+  <section data-aos="fade-up">
+    <h1 class="section-title">Fun Calligraphy Styles for Kids</h1>
+    <p class="section-description" style="text-align: center; max-width: 800px; margin: 0 auto 40px; font-size: 1.2rem;">
+      Discover our collection of playful calligraphy styles designed specifically for young learners. Each technique is easy to master and packed with creative fun!
+    </p>
+    
+    <div class="kids-gallery">
+      <div class="gallery-row" data-aos="fade-up">
+        <div class="gallery-image">
+          <img src="kidsfaux.jpg" alt="Faux Calligraphy for Kids">
+        </div>
+        <div class="gallery-content">
+          <h3>Faux Calligraphy</h3>
+          <p>Use regular pens or markers to mimic beautiful calligraphy without any special tools. Perfect for beginners to understand the basics of thick and thin strokes.</p>
+          <ul class="benefits-list">
+            <li>No special tools required</li>
+            <li>Great for understanding stroke variation</li>
+            <li>Can be done with any writing instrument</li>
+            <li>Builds confidence in letter formation</li>
+          </ul>
+          <span class="age-tag">Recommended for ages 6+</span>
+        </div>
+      </div>
+      
+      <div class="gallery-row reverse" data-aos="fade-up">
+        <div class="gallery-image">
+          <img src="kidsbubble.jpg" alt="Bubble Letters for Kids">
+        </div>
+        <div class="gallery-content">
+          <h3>Bubble Letters</h3>
+          <p>Fun, bold letters that kids love to color in and decorate. This style helps children understand letter shapes while allowing for creative expression.</p>
+          <ul class="benefits-list">
+            <li>Encourages creativity with coloring</li>
+            <li>Easy to learn basic shapes</li>
+            <li>Great for posters and signs</li>
+            <li>Can be combined with patterns</li>
+          </ul>
+          <span class="age-tag">Recommended for ages 5+</span>
+        </div>
+      </div>
+      
+      <div class="gallery-row" data-aos="fade-up">
+        <div class="gallery-image">
+          <img src="kidsblock.jpg" alt="Block Letters for Kids">
+        </div>
+        <div class="gallery-content">
+          <h3>Block Letters</h3>
+          <p>Simple, easy-to-control letters perfect for learning spacing and shapes. A great foundation for more advanced calligraphy styles.</p>
+          <ul class="benefits-list">
+            <li>Builds hand-eye coordination</li>
+            <li>Teaches consistent spacing</li>
+            <li>Good for practicing straight lines</li>
+            <li>Foundation for 3D lettering</li>
+          </ul>
+          <span class="age-tag">Recommended for ages 6+</span>
+        </div>
+      </div>
+      
+      <div class="gallery-row reverse" data-aos="fade-up">
+        <div class="gallery-image">
+          <img src="kidscrayon.jpeg" alt="Crayon Calligraphy for Kids">
+        </div>
+        <div class="gallery-content">
+          <h3>Crayon Calligraphy</h3>
+          <p>Soft crayons make it easy for small hands to create big, colorful letters. The smooth texture helps children develop control.</p>
+          <ul class="benefits-list">
+            <li>Uses familiar tools</li>
+            <li>Encourages color blending</li>
+            <li>Forgiving medium for mistakes</li>
+            <li>Great for tactile learners</li>
+          </ul>
+          <span class="age-tag">Recommended for ages 4+</span>
+        </div>
+      </div>
+      
+      <div class="gallery-row" data-aos="fade-up">
+        <div class="gallery-image">
+          <img src="kidsrainbrowbrush.webp" alt="Rainbow Brush Letters for Kids">
+        </div>
+        <div class="gallery-content">
+          <h3>Rainbow Brush Letters</h3>
+          <p>Use multiple colors or markers to form vibrant, beginner-friendly strokes. This technique makes each letter a colorful masterpiece.</p>
+          <ul class="benefits-list">
+            <li>Teaches color theory</li>
+            <li>Makes practice sessions fun</li>
+            <li>Encourages smooth strokes</li>
+            <li>Great for greeting cards</li>
+          </ul>
+          <span class="age-tag">Recommended for ages 7+</span>
+        </div>
+      </div>
+      
+      <div class="gallery-row reverse" data-aos="fade-up">
+        <div class="gallery-image">
+          <img src="kidsdotted.webp" alt="Dotted Letters for Kids">
+        </div>
+        <div class="gallery-content">
+          <h3>Dotted Letters</h3>
+          <p>Helps kids trace and learn basic shapes of letters. This method builds confidence before moving to freehand writing.</p>
+          <ul class="benefits-list">
+            <li>Builds muscle memory</li>
+            <li>Reduces frustration</li>
+            <li>Teaches proper letter formation</li>
+            <li>Can be used with various tools</li>
+          </ul>
+          <span class="age-tag">Recommended for ages 4+</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Features Section -->
+  <section class="features-section" data-aos="fade-up">
+    <h1 class="section-title">Why Kids Love Calligraphy</h1>
+    <div class="features-grid">
+      <div class="feature-card" data-aos="fade-up">
+        <div class="feature-icon"><i class="fas fa-paint-brush"></i></div>
+        <h3>Creative Expression</h3>
+        <p>Calligraphy allows children to express themselves artistically while learning valuable skills.</p>
+      </div>
+      <div class="feature-card" data-aos="fade-up" data-aos-delay="100">
+        <div class="feature-icon"><i class="fas fa-brain"></i></div>
+        <h3>Cognitive Development</h3>
+        <p>Improves focus, patience, and hand-eye coordination in a fun, engaging way.</p>
+      </div>
+      <div class="feature-card" data-aos="fade-up" data-aos-delay="200">
+        <div class="feature-icon"><i class="fas fa-smile"></i></div>
+        <h3>Boosts Confidence</h3>
+        <p>Seeing their progress builds self-esteem and a sense of accomplishment.</p>
+      </div>
+      <div class="feature-card" data-aos="fade-up">
+        <div class="feature-icon"><i class="fas fa-school"></i></div>
+        <h3>Educational Benefits</h3>
+        <p>Reinforces letter recognition and improves handwriting skills.</p>
+      </div>
+      <div class="feature-card" data-aos="fade-up" data-aos-delay="100">
+        <div class="feature-icon"><i class="fas fa-tablet-alt"></i></div>
+        <h3>Screen-Free Activity</h3>
+        <p>Provides a creative alternative to digital entertainment.</p>
+      </div>
+      <div class="feature-card" data-aos="fade-up" data-aos-delay="200">
+        <div class="feature-icon"><i class="fas fa-gift"></i></div>
+        <h3>Practical Applications</h3>
+        <p>Kids can create cards, signs, and gifts for family and friends.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Testimonials Section -->
+  <section class="testimonials-section" data-aos="fade-up">
+    <h1 class="section-title">What Parents & Teachers Say</h1>
+    <div class="testimonial-grid">
+      <div class="testimonial-card" data-aos="fade-up">
+        <p class="testimonial-text">My daughter was struggling with handwriting until we discovered calligraphy. Now she practices daily and her regular writing has improved dramatically!</p>
+        <p class="testimonial-author">- Sarah K.<br><span>Parent</span></p>
+      </div>
+      <div class="testimonial-card" data-aos="fade-up" data-aos-delay="100">
+        <p class="testimonial-text">I use these techniques in my classroom to make handwriting practice fun. The kids don't even realize they're learning because they're having so much fun!</p>
+        <p class="testimonial-author">- Mr. Johnson<br><span>Elementary Teacher</span></p>
+      </div>
+      <div class="testimonial-card" data-aos="fade-up" data-aos-delay="200">
+        <p class="testimonial-text">The calligraphy starter kit was the perfect birthday gift for my 8-year-old. She's created beautiful cards for all her friends and family.</p>
+        <p class="testimonial-author">- The Patel Family<br><span>Happy Customers</span></p>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA Section -->
+  <section class="cta-section" data-aos="zoom-in">
+    <h2>Ready to Start Your Child's Calligraphy Journey?</h2>
+    <p>Download our free beginner's guide or sign up for our kids' calligraphy workshop!</p>
+    <div style="display: flex; justify-content: center; gap: 20px; flex-wrap: wrap;">
+      <a href="contact.html" class="cta-button">Free Guide</a>
+      <a href="contact.html" class="cta-button">Workshop Signup</a>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <p>&copy; 2025 QuickCalligraphy | All rights reserved by Qureshi Sahab.</p>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
+  <script>
+    // Initialize AOS
+    AOS.init({ 
+      duration: 1000, 
+      once: true,
+      easing: 'ease-out-back',
+      offset: 120
+    });
+
+    // Create floating particles
+    function createParticles() {
+      const particlesContainer = document.getElementById('particles');
+      const particleCount = 30;
+      
+      for (let i = 0; i < particleCount; i++) {
+        const particle = document.createElement('div');
+        particle.classList.add('particle');
+        
+        // Random size between 2px and 6px
+        const size = Math.random() * 4 + 2;
+        particle.style.width = `${size}px`;
+        particle.style.height = `${size}px`;
+        
+        // Random position
+        particle.style.left = `${Math.random() * 100}%`;
+        particle.style.top = `${Math.random() * 100}%`;
+        
+        // Random animation duration between 10s and 30s
+        const duration = Math.random() * 20 + 10;
+        particle.style.animationDuration = `${duration}s`;
+        
+        // Random delay
+        particle.style.animationDelay = `${Math.random() * 10}s`;
+        
+        particlesContainer.appendChild(particle);
+      }
+    }
+
+    // Scroll progress indicator
+    function updateScrollProgress() {
+      const scrollProgress = document.getElementById('scrollProgress');
+      const scrollTop = document.documentElement.scrollTop;
+      const scrollHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+      const scrollPercentage = (scrollTop / scrollHeight) * 100;
+      scrollProgress.style.width = `${scrollPercentage}%`;
+    }
+
+    // Theme toggle function
+    function toggleTheme() {
+      const body = document.body;
+      const currentTheme = body.getAttribute('data-theme');
+      
+      if (currentTheme === 'dark') {
+        body.removeAttribute('data-theme');
+        localStorage.setItem('theme', 'light');
+      } else {
+        body.setAttribute('data-theme', 'dark');
+        localStorage.setItem('theme', 'dark');
+      }
+    }
+
+    // Check for saved theme preference
+    function checkTheme() {
+      const savedTheme = localStorage.getItem('theme');
+      if (savedTheme === 'dark') {
+        document.body.setAttribute('data-theme', 'dark');
+      }
+    }
+
+    // Initialize all functions when DOM is loaded
+    document.addEventListener('DOMContentLoaded', function() {
+      createParticles();
+      checkTheme();
+      
+      // Update scroll progress on scroll
+      window.addEventListener('scroll', updateScrollProgress);
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,662 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Categories | QuickCalligraphy</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
+  <link href="https://unpkg.com/aos@2.3.4/dist/aos.css" rel="stylesheet">
+  <style>
+    :root {
+      --bg-color: #fff;
+      --text-color: #000;
+      --nav-bg: #111;
+      --btn-primary: #ff6600;
+      --btn-secondary: #444;
+      --card-bg: #f4f4f4;
+      --glow-color: rgba(255, 102, 0, 0.7);
+    }
+    [data-theme="dark"] {
+      --bg-color: #121212;
+      --text-color: #f0f0f0;
+      --nav-bg: #000;
+      --btn-primary: #ff6600;
+      --btn-secondary: #333;
+      --card-bg: #1e1e1e;
+      --glow-color: rgba(255, 102, 0, 0.9);
+    }
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Segoe UI', sans-serif;
+    }
+    html {
+      scroll-behavior: smooth;
+    }
+    body {
+      background: var(--bg-color);
+      color: var(--text-color);
+      transition: background 0.5s, color 0.5s;
+      overflow-x: hidden;
+    }
+    body::before {
+      content: "";
+      position: fixed;
+      top: -50%;
+      left: -50%;
+      width: 200%;
+      height: 200%;
+      background: radial-gradient(circle at center, var(--btn-primary) 0%, transparent 70%);
+      animation: rotateBackground 20s linear infinite;
+      opacity: 0.08;
+      z-index: 0;
+    }
+    @keyframes rotateBackground {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+
+    /* Floating particles animation */
+    .particles {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: -1;
+    }
+    
+    .particle {
+      position: absolute;
+      background: var(--btn-primary);
+      border-radius: 50%;
+      opacity: 0.3;
+      animation: float linear infinite;
+    }
+    
+    @keyframes float {
+      0% { transform: translateY(0) rotate(0deg); }
+      100% { transform: translateY(-100vh) rotate(360deg); }
+    }
+
+    /* Scroll indicator */
+    .scroll-progress {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 0%;
+      height: 5px;
+      background: var(--btn-primary);
+      z-index: 1000;
+      transition: width 0.1s;
+      box-shadow: 0 0 10px var(--glow-color);
+    }
+
+    nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 20px;
+      background: var(--nav-bg);
+      color: white;
+      flex-wrap: wrap;
+      position: relative;
+      z-index: 100;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+    }
+    .logo img {
+      height: 60px;
+      transition: transform 0.3s ease;
+      filter: drop-shadow(0 0 5px rgba(255,255,255,0.3));
+    }
+    .logo img:hover {
+      transform: rotate(-5deg) scale(1.1);
+      filter: drop-shadow(0 0 10px var(--glow-color));
+    }
+    .nav-links {
+      list-style: none;
+      display: flex;
+      gap: 20px;
+    }
+    .nav-links li {
+      position: relative;
+    }
+    .nav-links a {
+      color: white;
+      text-decoration: none;
+      font-weight: bold;
+      position: relative;
+      transition: all 0.3s;
+      padding: 5px 10px;
+      border-radius: 5px;
+    }
+    .nav-links a::after {
+      content: '';
+      position: absolute;
+      width: 0;
+      height: 2px;
+      background: var(--btn-primary);
+      left: 0;
+      bottom: -4px;
+      transition: width 0.3s;
+    }
+    .nav-links a:hover {
+      text-shadow: 0 0 10px var(--glow-color);
+      background: rgba(255,255,255,0.1);
+    }
+    .nav-links a:hover::after,
+    .nav-links a.active::after {
+      width: 100%;
+    }
+    .dropdown {
+      display: none;
+      position: absolute;
+      top: 100%;
+      left: 0;
+      background: var(--nav-bg);
+      padding: 10px 0;
+      border-radius: 5px;
+      min-width: 150px;
+      box-shadow: 0 10px 20px rgba(0,0,0,0.3);
+      animation: fadeInDown 0.3s ease-out forwards;
+      transform-origin: top center;
+    }
+    @keyframes fadeInDown {
+      0% { opacity: 0; transform: translateY(-10px); }
+      100% { opacity: 1; transform: translateY(0); }
+    }
+    .dropdown li a {
+      display: block;
+      padding: 10px 20px;
+      color: white;
+      text-decoration: none;
+      transition: all 0.3s;
+    }
+    .dropdown li a:hover {
+      background: var(--btn-secondary);
+      padding-left: 25px;
+      text-shadow: 0 0 8px white;
+    }
+    .nav-links li:hover .dropdown {
+      display: block;
+    }
+    .toggle-mode {
+      cursor: pointer;
+      padding: 10px;
+      background: var(--btn-secondary);
+      color: white;
+      border: none;
+      border-radius: 50%;
+      font-size: 1.2rem;
+      transition: all 0.3s ease;
+      transform: translateZ(0);
+      will-change: transform;
+      box-shadow: 0 0 10px rgba(0,0,0,0.3);
+    }
+    .toggle-mode:hover {
+      background: var(--btn-primary);
+      transform: scale(1.1) translateZ(0);
+      box-shadow: 0 0 20px var(--glow-color);
+    }
+
+    /* Video Hero Section */
+    .video-hero {
+      position: relative;
+      height: 70vh;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+    }
+    .video-hero video {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      z-index: -1;
+    }
+    .video-hero::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0,0,0,0.3);
+      z-index: 0;
+    }
+    .hero-content {
+      position: relative;
+      z-index: 1;
+      color: white;
+      animation: fadeIn 2s ease-in;
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+    .hero-content h1 {
+      font-size: 3rem;
+      margin-bottom: 15px;
+      text-shadow: 0 0 20px rgba(255,255,255,0.5);
+    }
+    .hero-content p {
+      font-size: 1.2rem;
+      text-shadow: 0 0 10px rgba(255,255,255,0.3);
+    }
+
+    /* Category Section */
+    .category-section {
+      padding: 60px 20px;
+      max-width: 1200px;
+      margin: auto;
+      position: relative;
+      z-index: 1;
+    }
+    .category-section h1 {
+      font-size: 3rem;
+      text-align: center;
+      margin-bottom: 50px;
+      color: var(--btn-primary);
+      text-shadow: 2px 2px 10px var(--glow-color);
+      position: relative;
+    }
+    .category-section h1::after {
+      content: '';
+      position: absolute;
+      bottom: -10px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 80px;
+      height: 4px;
+      background: var(--btn-primary);
+      border-radius: 2px;
+      animation: underlinePulse 2s infinite;
+    }
+    @keyframes underlinePulse {
+      0% { width: 80px; opacity: 1; }
+      50% { width: 120px; opacity: 0.7; }
+      100% { width: 80px; opacity: 1; }
+    }
+    .categories-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 30px;
+    }
+    .category-card {
+      background: var(--card-bg);
+      border-radius: 15px;
+      padding: 20px;
+      text-align: center;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+      transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      position: relative;
+      overflow: hidden;
+    }
+    .category-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: var(--btn-primary);
+      opacity: 0;
+      transition: opacity 0.3s;
+      border-radius: 10px;
+      z-index: 1;
+      mix-blend-mode: overlay;
+    }
+    .category-card:hover::before {
+      opacity: 0.3;
+    }
+    .category-card:hover {
+      transform: translateY(-10px) scale(1.05);
+      box-shadow: 0 15px 40px rgba(0,0,0,0.3), 0 0 30px var(--glow-color);
+    }
+    .category-card img {
+      max-width: 100%;
+      height: 180px;
+      object-fit: cover;
+      border-radius: 10px;
+      margin-bottom: 15px;
+      transition: all 0.5s;
+    }
+    .category-card:hover img {
+      transform: scale(1.05);
+    }
+    .category-card h2 {
+      font-size: 1.6rem;
+      margin-bottom: 10px;
+      color: var(--btn-primary);
+      transition: all 0.3s;
+    }
+    .category-card:hover h2 {
+      text-shadow: 0 0 10px var(--glow-color);
+    }
+    .category-card p {
+      font-size: 1rem;
+      line-height: 1.6;
+    }
+
+    /* Floating calligraphy elements */
+    .floating-calligraphy {
+      position: absolute;
+      opacity: 0.1;
+      font-size: 5rem;
+      z-index: -1;
+      animation: floatAround 20s infinite linear;
+      pointer-events: none;
+    }
+    @keyframes floatAround {
+      0% { transform: translate(0, 0) rotate(0deg); }
+      25% { transform: translate(50px, 50px) rotate(90deg); }
+      50% { transform: translate(100px, 0) rotate(180deg); }
+      75% { transform: translate(50px, -50px) rotate(270deg); }
+      100% { transform: translate(0, 0) rotate(360deg); }
+    }
+
+    footer {
+      background: var(--nav-bg);
+      color: white;
+      text-align: center;
+      padding: 30px;
+      position: relative;
+      overflow: hidden;
+    }
+    footer::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 5px;
+      background: linear-gradient(90deg, var(--btn-primary), transparent);
+      animation: footerGlow 3s infinite alternate;
+    }
+    @keyframes footerGlow {
+      0% { opacity: 0.3; }
+      100% { opacity: 1; }
+    }
+    footer p {
+      position: relative;
+      animation: floatText 5s infinite ease-in-out;
+    }
+    @keyframes floatText {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-5px); }
+    }
+
+    @media (max-width: 768px) {
+      .nav-links {
+        flex-direction: column;
+        width: 100%;
+        gap: 10px;
+        margin-top: 10px;
+      }
+      .hero-content h1 {
+        font-size: 2rem;
+      }
+      .category-section h1 {
+        font-size: 2rem;
+      }
+      .categories-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Floating particles -->
+  <div class="particles" id="particles"></div>
+  
+  <!-- Scroll progress indicator -->
+  <div class="scroll-progress" id="scrollProgress"></div>
+
+  <!-- Navbar -->
+  <nav>
+    <div class="logo">
+      <img src="logo.png" alt="QuickCalligraphy Logo" />
+    </div>
+    <ul class="nav-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="about.html">About</a></li>
+      <li>
+        <a href="categories.html" class="active">Categories</a>
+        <ul class="dropdown">
+          <li><a href="kids.html">Kids</a></li>
+          <li><a href="normal.html">Normal</a></li>
+          <li><a href="elders.html">Elders</a></li>
+        </ul>
+      </li>
+      <li><a href="gallery.html">Gallery</a></li>
+      <li><a href="contact.html">Contact</a></li>
+    </ul>
+    <button class="toggle-mode" onclick="toggleTheme()" aria-label="Toggle dark mode">🌓</button>
+  </nav>
+
+  <!-- Video Hero Section -->
+  <div class="video-hero">
+    <video autoplay muted loop>
+      <source src="categoriesvideo.mp4" type="video/mp4">
+      Your browser does not support the video tag.
+    </video>
+    <div class="hero-content">
+      <h1>Calligraphy Categories</h1>
+      <p>Explore diverse styles from around the world</p>
+    </div>
+    <!-- Floating calligraphy elements -->
+    <div class="floating-calligraphy" style="top:20%; left:10%;">書</div>
+    <div class="floating-calligraphy" style="top:70%; left:80%;">خط</div>
+    <div class="floating-calligraphy" style="top:40%; left:60%;">A</div>
+    <div class="floating-calligraphy" style="top:60%; left:20%;">α</div>
+  </div>
+
+  <!-- Category Section -->
+  <section class="category-section">
+    <h1 data-aos="fade-down">Calligraphy Styles</h1>
+    <div class="categories-grid">
+      <!-- Each card with AOS animations -->
+      <div class="category-card" data-aos="zoom-in">
+        <img src="arabic.jpeg" alt="Arabic Calligraphy" />
+        <h2>Arabic</h2>
+        <p>Elegant scripts like Diwani, Thuluth, and Naskh make Arabic calligraphy a symbol of beauty and spirituality.</p>
+      </div>
+      <div class="category-card" data-aos="zoom-in" data-aos-delay="100">
+        <img src="urdu.jpg" alt="Urdu Calligraphy" />
+        <h2>Urdu</h2>
+        <p>A fusion of Nastaliq and artistic flair, Urdu calligraphy captures poetic expression and visual grace.</p>
+      </div>
+      <div class="category-card" data-aos="zoom-in" data-aos-delay="200">
+        <img src="caoshu.jpg" alt="Chinese Calligraphy" />
+        <h2>Chinese</h2>
+        <p>Chinese calligraphy blends strokes, balance, and centuries of cultural tradition into expressive art.</p>
+      </div>
+      <div class="category-card" data-aos="zoom-in" data-aos-delay="300">
+        <img src="western.jpeg" alt="Western Calligraphy" />
+        <h2>Western</h2>
+        <p>From Gothic to Copperplate, Western styles bring boldness and elegance to Latin alphabet writing.</p>
+      </div>
+      <div class="category-card" data-aos="zoom-in" data-aos-delay="400">
+        <img src="japnese.jpg" alt="Japanese Calligraphy" />
+        <h2>Japanese</h2>
+        <p>Known as Shodō, Japanese calligraphy emphasizes simplicity, brush control, and spiritual focus.</p>
+      </div>
+      <div class="category-card" data-aos="zoom-in" data-aos-delay="500">
+        <img src="modern.jpeg" alt="Modern Calligraphy" />
+        <h2>Modern</h2>
+        <p>Modern calligraphy fuses traditional styles with contemporary flair for personal and digital expression.</p>
+      </div>
+      <div class="category-card" data-aos="zoom-in" data-aos-delay="600">
+        <img src="persian.jpg" alt="Persian Calligraphy" />
+        <h2>Persian</h2>
+        <p>Flowing curves and poetic rhythm define the Persian script, a cornerstone of Iranian art heritage.</p>
+      </div>
+      <div class="category-card" data-aos="zoom-in" data-aos-delay="700">
+        <img src="gothic.jpg" alt="Gothic Calligraphy" />
+        <h2>Gothic</h2>
+        <p>Gothic script is recognized by its dramatic, angular strokes and historic medieval roots.</p>
+      </div>
+      <div class="category-card" data-aos="zoom-in" data-aos-delay="800">
+        <img src="brush.jpeg" alt="Brush Lettering" />
+        <h2>Brush Lettering</h2>
+        <p>Brush calligraphy uses flexible pens or brushes to create thick and thin stroke contrast with fluid motion.</p>
+      </div>
+      <div class="category-card" data-aos="zoom-in" data-aos-delay="900">
+        <img src="copperplate.jpg" alt="Copperplate Calligraphy" />
+        <h2>Copperplate</h2>
+        <p>This elegant style features loops, flourishes, and thin upstrokes commonly used for formal invitations.</p>
+      </div>
+      <div class="category-card" data-aos="zoom-in" data-aos-delay="1000">
+        <img src="roman.jpeg" alt="Roman Calligraphy" />
+        <h2>Roman</h2>
+        <p>Characterized by proportion and geometry, Roman capitals are timeless and foundational to Western typography.</p>
+      </div>
+      <div class="category-card" data-aos="zoom-in" data-aos-delay="1100">
+        <img src="artistic.jpg" alt="Artistic Calligraphy" />
+        <h2>Artistic</h2>
+        <p>This freeform style blends creativity and spontaneity, pushing calligraphy beyond traditional forms.</p>
+      </div>
+      <div class="category-card" data-aos="zoom-in" data-aos-delay="1200">
+        <img src="italic.jpg" alt="Italic Calligraphy" />
+        <h2>Italic</h2>
+        <p>A Renaissance-era style known for its slightly slanted and smooth strokes, making it suitable for personal and professional use.</p>
+      </div>
+      <div class="category-card" data-aos="zoom-in" data-aos-delay="1300">
+        <img src="faux.jpeg" alt="Faux Calligraphy" />
+        <h2>Faux</h2>
+        <p>This beginner-friendly technique uses regular pens to mimic the look of calligraphy. It’s easy to learn without needing special tools.</p>
+      </div>
+      <div class="category-card" data-aos="zoom-in" data-aos-delay="1400">
+        <img src="kufic.jpg" alt="Kufic Calligraphy" />
+        <h2>Kufic</h2>
+        <p>Kufic is geometric and angular was widely used in early Qur’anic manuscripts and is often seen in architectural elements and Islamic art.</p>
+      </div>
+      <div class="category-card" data-aos="zoom-in" data-aos-delay="1500">
+        <img src="naskh.jpg" alt="Naskh Calligraphy" />
+        <h2>Naskh</h2>
+        <p>Naskh became the standard for writing Arabic texts, including the Qur'an. It’s still commonly used in print and digital Arabic.</p>
+      </div>
+      <div class="category-card" data-aos="zoom-in" data-aos-delay="1600">
+        <img src="thuluth.jpeg" alt="Thuluth Calligraphy" />
+        <h2>Thuluth</h2>
+        <p>Thuluth is often used in architectural inscriptions, religious banners, and mosque decorations.</p>
+      </div>
+      <div class="category-card" data-aos="zoom-in" data-aos-delay="1700">
+        <img src="graphic.webp" alt="Graphic Calligraphy" />
+        <h2>Graphic</h2>
+        <p>A modern approach using digital tools like tablets and styluses to create hand-lettered designs. Popular for logos, social media, and typography art.</p>
+      </div>
+      <div class="category-card" data-aos="zoom-in" data-aos-delay="1800">
+        <img src="kaishu.jpeg" alt="Kaishu Calligraphy" />
+        <h2>Kaishu</h2>
+        <p>Developed in China during the Han Dynasty, Regular Script is the most standard and widely used form of Chinese calligraphy.</p>
+      </div>
+      <div class="category-card" data-aos="zoom-in" data-aos-delay="1900">
+        <img src="graffiti.avif" alt="Graffiti Calligraphy" />
+        <h2>Graffiti</h2>
+        <p>A contemporary, street-art-inspired form of calligraphy. Combines bold strokes, expressive shapes, and dynamic layouts.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <p>&copy; 2025 QuickCalligraphy | All rights reserved by Qureshi Sahab</p>
+  </footer>
+
+  <!-- AOS Scroll Animations -->
+  <script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
+  <script>
+    // Initialize AOS
+    AOS.init({ 
+      duration: 1000, 
+      once: true,
+      easing: 'ease-out-back',
+      offset: 120
+    });
+
+    // Create floating particles
+    function createParticles() {
+      const particlesContainer = document.getElementById('particles');
+      const particleCount = 30;
+      
+      for (let i = 0; i < particleCount; i++) {
+        const particle = document.createElement('div');
+        particle.classList.add('particle');
+        
+        // Random size between 2px and 6px
+        const size = Math.random() * 4 + 2;
+        particle.style.width = `${size}px`;
+        particle.style.height = `${size}px`;
+        
+        // Random position
+        particle.style.left = `${Math.random() * 100}%`;
+        particle.style.top = `${Math.random() * 100}%`;
+        
+        // Random animation duration between 10s and 30s
+        const duration = Math.random() * 20 + 10;
+        particle.style.animationDuration = `${duration}s`;
+        
+        // Random delay
+        particle.style.animationDelay = `${Math.random() * 10}s`;
+        
+        particlesContainer.appendChild(particle);
+      }
+    }
+
+    // Scroll progress indicator
+    function updateScrollProgress() {
+      const scrollProgress = document.getElementById('scrollProgress');
+      const scrollTop = document.documentElement.scrollTop;
+      const scrollHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+      const scrollPercentage = (scrollTop / scrollHeight) * 100;
+      scrollProgress.style.width = `${scrollPercentage}%`;
+    }
+
+    // Theme toggle function
+    function toggleTheme() {
+      const currentTheme = document.documentElement.getAttribute('data-theme');
+      const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+      document.documentElement.setAttribute('data-theme', newTheme);
+      localStorage.setItem('theme', newTheme);
+      
+      // Add animation to theme toggle
+      const toggleBtn = document.querySelector('.toggle-mode');
+      toggleBtn.style.transform = 'scale(1.2)';
+      setTimeout(() => {
+        toggleBtn.style.transform = 'scale(1)';
+      }, 300);
+    }
+
+    // On page load
+    window.onload = () => {
+      const savedTheme = localStorage.getItem('theme') || 'light';
+      document.documentElement.setAttribute('data-theme', savedTheme);
+      
+      // Create particles
+      createParticles();
+      
+      // Set up scroll progress indicator
+      window.addEventListener('scroll', updateScrollProgress);
+      updateScrollProgress();
+
+      // Add hover effects to all interactive elements
+      document.querySelectorAll('a, button, .category-card').forEach(el => {
+        el.addEventListener('mouseenter', () => {
+          el.style.transform = 'scale(1.02)';
+          el.style.transition = 'all 0.3s ease';
+        });
+        el.addEventListener('mouseleave', () => {
+          el.style.transform = 'scale(1)';
+        });
+      });
+    };
+  </script>
+</body>
+</html>

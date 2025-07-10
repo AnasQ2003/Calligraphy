@@ -1,0 +1,971 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>About | QuickCalligraphy</title>
+  <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Roboto&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css" />
+
+  <style>
+    :root {
+      --bg-color: #fff;
+      --text-color: #000;
+      --nav-bg: #111;
+      --btn-primary: #ff6600;
+      --btn-secondary: #444;
+      --card-bg: #f4f4f4;
+      --glow-color: rgba(255, 102, 0, 0.7);
+    }
+    [data-theme="dark"] {
+      --bg-color: #121212;
+      --text-color: #f0f0f0;
+      --nav-bg: #000;
+      --btn-primary: #ff6600;
+      --btn-secondary: #333;
+      --card-bg: #1e1e1e;
+      --glow-color: rgba(255, 102, 0, 0.9);
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Segoe UI', sans-serif;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      background: var(--bg-color);
+      color: var(--text-color);
+      transition: background 0.5s, color 0.5s;
+      overflow-x: hidden;
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      top: -50%;
+      left: -50%;
+      width: 200%;
+      height: 200%;
+      background: radial-gradient(circle at center, var(--btn-primary) 0%, transparent 70%);
+      animation: rotateBackground 20s linear infinite;
+      opacity: 0.08;
+      z-index: 0;
+    }
+    @keyframes rotateBackground {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+
+    /* Floating particles animation */
+    .particles {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: -1;
+    }
+    
+    .particle {
+      position: absolute;
+      background: var(--btn-primary);
+      border-radius: 50%;
+      opacity: 0.3;
+      animation: float linear infinite;
+    }
+    
+    @keyframes float {
+      0% { transform: translateY(0) rotate(0deg); }
+      100% { transform: translateY(-100vh) rotate(360deg); }
+    }
+
+    /* Scroll indicator */
+    .scroll-progress {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 0%;
+      height: 5px;
+      background: var(--btn-primary);
+      z-index: 1000;
+      transition: width 0.1s;
+      box-shadow: 0 0 10px var(--glow-color);
+    }
+
+    nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 20px;
+      background: var(--nav-bg);
+      color: white;
+      flex-wrap: wrap;
+      position: relative;
+      z-index: 100;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+    }
+
+    .logo img {
+      height: 60px;
+      transition: transform 0.3s ease;
+      filter: drop-shadow(0 0 5px rgba(255,255,255,0.3));
+    }
+
+    .logo img:hover {
+      transform: rotate(-5deg) scale(1.1);
+      filter: drop-shadow(0 0 10px var(--glow-color));
+    }
+
+    .nav-links {
+      list-style: none;
+      display: flex;
+      gap: 20px;
+    }
+
+    .nav-links li {
+      position: relative;
+    }
+
+    .nav-links a {
+      color: white;
+      text-decoration: none;
+      font-weight: bold;
+      position: relative;
+      transition: all 0.3s;
+      padding: 5px 10px;
+      border-radius: 5px;
+    }
+
+    .nav-links a::after {
+      content: '';
+      position: absolute;
+      width: 0;
+      height: 2px;
+      background: var(--btn-primary);
+      left: 0;
+      bottom: -4px;
+      transition: width 0.3s;
+    }
+
+    .nav-links a:hover {
+      text-shadow: 0 0 10px var(--glow-color);
+      background: rgba(255,255,255,0.1);
+    }
+
+    .nav-links a:hover::after,
+    .nav-links a.active::after {
+      width: 100%;
+    }
+
+    .dropdown {
+      display: none;
+      position: absolute;
+      top: 100%;
+      left: 0;
+      background: var(--nav-bg);
+      padding: 10px 0;
+      border-radius: 5px;
+      min-width: 150px;
+      box-shadow: 0 10px 20px rgba(0,0,0,0.3);
+      animation: fadeInDown 0.3s ease-out forwards;
+      transform-origin: top center;
+    }
+
+    @keyframes fadeInDown {
+      0% { opacity: 0; transform: translateY(-10px); }
+      100% { opacity: 1; transform: translateY(0); }
+    }
+
+    .dropdown li a {
+      display: block;
+      padding: 10px 20px;
+      color: white;
+      text-decoration: none;
+      transition: all 0.3s;
+    }
+
+    .dropdown li a:hover {
+      background: var(--btn-secondary);
+      padding-left: 25px;
+      text-shadow: 0 0 8px white;
+    }
+
+    .nav-links li:hover .dropdown {
+      display: block;
+    }
+
+    .toggle-mode {
+      cursor: pointer;
+      padding: 10px;
+      background: var(--btn-secondary);
+      color: white;
+      border: none;
+      border-radius: 50%;
+      font-size: 1.2rem;
+      transition: all 0.3s ease;
+      transform: translateZ(0);
+      will-change: transform;
+      box-shadow: 0 0 10px rgba(0,0,0,0.3);
+    }
+
+    .toggle-mode:hover {
+      background: var(--btn-primary);
+      transform: scale(1.1) translateZ(0);
+      box-shadow: 0 0 20px var(--glow-color);
+    }
+
+    .video-background {
+      position: relative;
+      overflow: hidden;
+      height: 70vh;
+      z-index: 1;
+      animation: zoomIn 10s ease-in-out infinite alternate;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    @keyframes zoomIn {
+      from { background-size: 100%; }
+      to { background-size: 110%; }
+    }
+
+    .video-background video {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      position: absolute;
+      top: 0;
+      left: 0;
+      z-index: -1;
+    }
+
+    .overlay-text {
+      position: relative;
+      color: white;
+      text-align: center;
+      z-index: 1;
+      font-size: 3rem;
+      font-family: 'Great Vibes', cursive;
+      background-color: rgba(0, 0, 0, 0.5);
+      padding: 20px;
+      border-radius: 10px;
+      animation: pulse 5s infinite alternate;
+      text-shadow: 0 0 20px rgba(255,255,255,0.5);
+      max-width: 80%;
+      margin: 0 auto;
+    }
+
+    @keyframes pulse {
+      0% { transform: scale(1); }
+      50% { transform: scale(1.02); }
+      100% { transform: scale(1); }
+    }
+
+    /* Floating calligraphy elements */
+    .floating-calligraphy {
+      position: absolute;
+      opacity: 0.1;
+      font-size: 5rem;
+      z-index: -1;
+      animation: floatAround 20s infinite linear;
+      pointer-events: none;
+    }
+
+    @keyframes floatAround {
+      0% { transform: translate(0, 0) rotate(0deg); }
+      25% { transform: translate(50px, 50px) rotate(90deg); }
+      50% { transform: translate(100px, 0) rotate(180deg); }
+      75% { transform: translate(50px, -50px) rotate(270deg); }
+      100% { transform: translate(0, 0) rotate(360deg); }
+    }
+
+    /* Rest of your existing styles... */
+    .about-section {
+      padding: 60px 20px;
+      max-width: 1000px;
+      margin: auto;
+      text-align: center;
+      position: relative;
+      z-index: 1;
+    }
+
+    .about-section h1 {
+      font-size: 3rem;
+      margin-bottom: 20px;
+      font-family: 'Great Vibes', cursive;
+      background: linear-gradient(90deg, #ff6600, #ff9900);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      animation: pulse 3s infinite;
+      text-shadow: 2px 2px 10px var(--glow-color);
+    }
+
+    .about-section h2 {
+      font-size: 2rem;
+      color: #ff6600;
+      margin: 30px 0 10px;
+      border-bottom: 3px solid #ff6600;
+      display: inline-block;
+      padding-bottom: 5px;
+      text-shadow: 2px 2px 10px var(--glow-color);
+      position: relative;
+    }
+
+    .about-section h2::after {
+      content: '';
+      position: absolute;
+      bottom: -10px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 80px;
+      height: 4px;
+      background: var(--btn-primary);
+      border-radius: 2px;
+      animation: underlinePulse 2s infinite;
+    }
+
+    @keyframes underlinePulse {
+      0% { width: 80px; opacity: 1; }
+      50% { width: 120px; opacity: 0.7; }
+      100% { width: 80px; opacity: 1; }
+    }
+
+    .about-section p,
+    .about-section ul,
+    .about-section li {
+      font-size: 1.1rem;
+      line-height: 1.7;
+      margin-bottom: 20px;
+      text-align: left;
+    }
+
+    .about-section ul {
+      padding-left: 20px;
+    }
+
+    .about-section img {
+      width: 90%;
+      max-width: 600px;
+      border-radius: 15px;
+      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+      margin: 30px 0;
+      transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    }
+
+    .about-section img:hover {
+      transform: scale(1.03);
+      box-shadow: 0 15px 30px rgba(0,0,0,0.3), 0 0 30px var(--glow-color);
+    }
+
+    .history-section {
+      display: flex;
+      align-items: center;
+      margin: 2rem 0;
+      gap: 2rem;
+      flex-wrap: wrap;
+      transition: all 0.3s;
+    }
+
+    .history-section:hover {
+      transform: translateY(-5px);
+    }
+
+    .history-text {
+      flex: 1;
+      min-width: 280px;
+    }
+
+    .history-image {
+      flex: 1;
+      min-width: 280px;
+      text-align: center;
+    }
+
+    .history-image img {
+      max-width: 100%;
+      border-radius: 10px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+      transition: all 0.5s;
+    }
+
+    .history-image img:hover {
+      box-shadow: 0 10px 25px rgba(0,0,0,0.3), 0 0 20px var(--glow-color);
+    }
+
+    .type-section {
+      display: flex;
+      align-items: center;
+      margin: 2rem 0;
+      gap: 2rem;
+      flex-wrap: wrap;
+      transition: all 0.3s;
+    }
+
+    .type-section:hover {
+      transform: translateY(-5px);
+    }
+
+    .type-text {
+      flex: 1;
+      min-width: 280px;
+    }
+
+    .type-image {
+      flex: 1;
+      min-width: 280px;
+      text-align: center;
+    }
+
+    .type-image img {
+      max-width: 100%;
+      border-radius: 10px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+      transition: all 0.5s;
+    }
+
+    .type-image img:hover {
+      box-shadow: 0 10px 25px rgba(0,0,0,0.3), 0 0 20px var(--glow-color);
+    }
+
+    .flex-section {
+      display: flex;
+      align-items: center;
+      gap: 2rem;
+      flex-wrap: wrap;
+      transition: all 0.3s;
+    }
+
+    .flex-section:hover {
+      transform: translateY(-5px);
+    }
+
+    .flex-text {
+      flex: 1;
+      min-width: 280px;
+    }
+
+    .flex-image {
+      flex: 1;
+      min-width: 280px;
+    }
+
+    .flex-image img {
+      width: 100%;
+      border-radius: 8px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+      transition: all 0.5s;
+    }
+
+    .flex-image img:hover {
+      box-shadow: 0 10px 25px rgba(0,0,0,0.3), 0 0 20px var(--glow-color);
+    }
+
+    .journey-section {
+      background: var(--card-bg);
+      padding: 60px 20px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 40px;
+      position: relative;
+      z-index: 1;
+      transition: all 0.3s;
+    }
+
+    .journey-section:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+    }
+
+    .journey-content {
+      flex: 1;
+      min-width: 280px;
+    }
+
+    .journey-content h2 {
+      font-size: 2.5rem;
+      margin-bottom: 20px;
+      color: #ff6600;
+      font-family: 'Great Vibes', cursive;
+    }
+
+    .journey-content p {
+      font-size: 1.1rem;
+      line-height: 1.8;
+      color: var(--text-color);
+    }
+
+    .journey-image {
+      flex: 1;
+      min-width: 280px;
+    }
+
+    .journey-image img {
+      width: 100%;
+      max-width: 500px;
+      border-radius: 15px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+      transition: transform 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    }
+
+    .journey-image img:hover {
+      transform: scale(1.05);
+      box-shadow: 0 15px 35px rgba(0,0,0,0.3), 0 0 30px var(--glow-color);
+    }
+
+    footer {
+      background: var(--nav-bg);
+      color: white;
+      text-align: center;
+      padding: 25px;
+      margin-top: 60px;
+      font-size: 0.95rem;
+      box-shadow: 0 -4px 10px rgba(0,0,0,0.3);
+      position: relative;
+      z-index: 1;
+    }
+
+    footer::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 5px;
+      background: linear-gradient(90deg, var(--btn-primary), transparent);
+      animation: footerGlow 3s infinite alternate;
+    }
+
+    @keyframes footerGlow {
+      0% { opacity: 0.3; }
+      100% { opacity: 1; }
+    }
+
+    footer p {
+      position: relative;
+      animation: floatText 5s infinite ease-in-out;
+    }
+
+    @keyframes floatText {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-5px); }
+    }
+
+    @keyframes pulse {
+      0%, 100% {
+        transform: scale(1);
+      }
+      50% {
+        transform: scale(1.05);
+      }
+    }
+
+    /* Button styles */
+    .btn {
+      display: inline-block;
+      padding: 12px 25px;
+      margin: 10px;
+      background: var(--btn-primary);
+      color: white;
+      text-decoration: none;
+      border-radius: 5px;
+      transition: all 0.3s ease;
+      transform: translateZ(0);
+      will-change: transform;
+      position: relative;
+      overflow: hidden;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+      border: none;
+      font-weight: bold;
+    }
+
+    .btn::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+      transition: 0.5s;
+    }
+
+    .btn:hover::before {
+      left: 100%;
+    }
+
+    .btn:hover {
+      transform: scale(1.05) translateZ(0);
+      background: #e65c00;
+      box-shadow: 0 0 20px var(--glow-color);
+    }
+
+    @media (max-width: 768px) {
+      .nav-links {
+        flex-direction: column;
+        gap: 10px;
+      }
+
+      .journey-section {
+        flex-direction: column;
+        text-align: center;
+      }
+      .toggle-mode {
+        margin-top: 10px;
+        align-self: flex-end;
+      }
+      
+      .overlay-text {
+        font-size: 2rem;
+        padding: 15px;
+      }
+      
+      .about-section h1 {
+        font-size: 2.5rem;
+      }
+      
+      .about-section h2 {
+        font-size: 1.8rem;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <!-- Floating particles -->
+  <div class="particles" id="particles"></div>
+  
+  <!-- Scroll progress indicator -->
+  <div class="scroll-progress" id="scrollProgress"></div>
+  
+  <nav>
+    <div class="logo">
+      <img src="logo.png" alt="QuickCalligraphy Logo" />
+    </div>
+    <ul class="nav-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="about.html" class="active">About</a></li>
+      <li>
+        <a href="categories.html">Categories</a>
+        <ul class="dropdown">
+          <li><a href="kids.html">Kids</a></li>
+          <li><a href="normal.html">Normal</a></li>
+          <li><a href="elders.html">Elders</a></li>
+        </ul>
+      </li>
+      <li><a href="gallery.html">Gallery</a></li>
+      <li><a href="contact.html">Contact</a></li>
+    </ul>
+    <button class="toggle-mode" onclick="toggleTheme()" aria-label="Toggle dark mode">🌓</button>
+  </nav>
+
+  <div class="video-background" data-aos="zoom-in">
+    <video autoplay muted loop>
+      <source src="video.mp4" type="video/mp4" />
+      Your browser does not support the video tag.
+    </video>
+    <div class="overlay-text">QuickCalligraphy – Where Art Meets Elegance</div>
+    <!-- Floating calligraphy elements -->
+    <div class="floating-calligraphy" style="top:20%; left:10%;">書</div>
+    <div class="floating-calligraphy" style="top:70%; left:80%;">خط</div>
+    <div class="floating-calligraphy" style="top:40%; left:60%;">A</div>
+    <div class="floating-calligraphy" style="top:60%; left:20%;">α</div>
+  </div>
+
+  <!-- Rest of your existing content... -->
+  <section class="about-section" data-aos="fade-up">
+    <h1>About Us</h1>
+    <p data-aos="fade-up" data-aos-delay="100">Welcome to our world of Calligraphy – the art of beautiful handwriting.
+      Rooted in history and culture, calligraphy blends visual art with written language, transforming simple letters
+      into elegant expressions. From ancient scripts carved in stone to intricate modern designs created with pen and
+      ink, calligraphy continues to inspire and connect people through its timeless charm.</p>
+    <p data-aos="fade-up" data-aos-delay="200">At our core, we celebrate the rich tradition and evolving styles of
+      calligraphy – from classic Western lettering to Arabic, Chinese, and modern brush calligraphy. Whether you're a
+      curious beginner or a seasoned artist, our platform offers inspiration, guidance, and resources to explore the
+      beauty of letters. Dive into tutorials, discover tools, and join a community passionate about turning handwriting
+      into art.</p>
+
+    <h2 data-aos="fade-left">📜 What is Calligraphy?</h2>
+    <p data-aos="fade-right">Calligraphy is the art of beautiful handwriting, where form and design are just as
+      important as the content. It involves the deliberate, stylized writing of letters, often using special tools like
+      pens, brushes, or quills. The term comes from the Greek words kallos (beauty) and graphein (to write), meaning
+      "beautiful writing."</p>
+
+    <h2 data-aos="fade-left">🌍 History & Origin</h2>
+    <p data-aos="fade-right">Calligraphy has a rich and ancient history that spans many cultures and continents. Here's a look at its development across civilizations:</p>
+
+    <div class="history-section" data-aos="fade-right">
+      <div class="history-text">
+        <h3>✨ 1. Western Calligraphy (Europe)</h3>
+        <li><strong>Origin:</strong> Ancient Rome and Greece</li>
+        <li><strong>Development:</strong> From Roman capital letters to medieval illuminated manuscripts.</li>
+        <li><strong>Styles:</strong> Gothic, Carolingian, Italic, Copperplate, Spencerian, Modern Script.</li>
+        <li><strong>Use:</strong> Religious texts, royal decrees, and decorative writing.</li>
+      </div>
+      <div class="history-image">
+        <img src="western.jpeg"
+          alt="Western Calligraphy" />
+      </div>
+    </div>
+
+    <div class="history-section" data-aos="fade-left">
+      <div class="history-text">
+        <h3>🕌 2. Islamic Calligraphy (Middle East & North Africa)</h3>
+        <li><strong>Origin:</strong> 7th century with the advent of Islam.</li>
+        <li><strong>Importance:</strong> Sacred art form used in writing the Quran.</li>
+        <li><strong>Styles:</strong> Kufic, Naskh, Thuluth, Diwani, Nastaliq.</li>
+        <li><strong>Tools:</strong> Qalam (reed pen) and ink.</li>
+        <li><strong>Features:</strong> Geometric beauty, symmetry, abstraction.</li>
+      </div>
+      <div class="history-image">
+        <img src="islamic.jpeg"
+          alt="Islamic Calligraphy" />
+      </div>
+    </div>
+
+    <div class="history-section" data-aos="fade-right">
+      <div class="history-text">
+        <h3>🉐 3. East Asian Calligraphy (China, Japan, Korea)</h3>
+        <li><strong>Origin:</strong> China, over 3,000 years ago during the Shang dynasty.</li>
+        <li><strong>System:</strong> Based on Chinese characters (Hanzi).</li>
+        <li><strong>Medium:</strong> Brush and ink on rice paper or silk.</li>
+        <li><strong>Styles:</strong> Seal, Clerical, Regular, Running, Cursive Script.</li>
+        <li><strong>Philosophy:</strong> Zen Buddhism, meditation, martial arts.</li>
+      </div>
+      <div class="history-image">
+        <img src="eastasian.jpg"
+          alt="East Asian Calligraphy" />
+      </div>
+    </div>
+
+    <div class="history-section" data-aos="fade-left">
+      <div class="history-text">
+        <h3>🪷 4. Indic Calligraphy (India & South Asia)</h3>
+        <li><strong>Scripts:</strong> Sanskrit, Devanagari, Urdu, Tamil, Gurmukhi, etc.</li>
+        <li><strong>Use:</strong> Religious manuscripts, Mughal-influenced art.</li>
+        <li><strong>Tools:</strong> Traditional reed pens, natural inks.</li>
+        <li><strong>Blend:</strong> Indigenous + Islamic artistic fusion.</li>
+      </div>
+      <div class="history-image">
+        <img src="indic.jpg"
+          alt="Indic Calligraphy" />
+      </div>
+    </div>
+
+
+    <h2 data-aos="fade-left">✒️ Types of Calligraphy</h2>
+    <p data-aos="fade-up">Here are some popular types of calligraphy styles across regions:</p>
+
+    <div class="type-section" data-aos="fade-right">
+      <div class="type-text">
+        <h3>✧ Traditional Types</h3>
+        <ul>
+          <li><strong>Western:</strong> Gothic, Italic, Roman, Copperplate, Spencerian</li>
+          <li><strong>Arabic/Islamic:</strong> Kufic, Naskh, Diwani, Thuluth, Nastaliq</li>
+          <li><strong>East Asian:</strong> Regular, Cursive, Seal, Running (based on Chinese/Japanese/Korean characters)
+          </li>
+        </ul>
+      </div>
+      <div class="type-image">
+        <img src="traditional.jpeg"
+          alt="Traditional Calligraphy" />
+      </div>
+    </div>
+
+    <div class="type-section" data-aos="fade-left">
+      <div class="type-text">
+        <h3>✧ Modern Types</h3>
+        <ul>
+          <li><strong>Brush Calligraphy:</strong> A popular style using brush pens for a modern, casual feel.</li>
+          <li><strong>Faux Calligraphy:</strong> Mimics real calligraphy using normal pens.</li>
+          <li><strong>Digital Calligraphy:</strong> Created using graphic tablets or software like Procreate and Adobe
+            Illustrator.</li>
+        </ul>
+      </div>
+      <div class="type-image">
+        <img src="modern.jpeg"
+          alt="Modern Calligraphy" />
+      </div>
+    </div>
+
+
+    <section class="flex-section" data-aos="fade-up">
+      <div class="flex-text">
+        <h2 data-aos="fade-left">🛠️ Tools Used in Calligraphy</h2>
+        <ul data-aos="fade-right">
+          <li><strong>Pens:</strong> Dip pens, fountain pens, brush pens, calligraphy markers</li>
+          <li><strong>Brushes:</strong> Traditional brushes (used in East Asian calligraphy)</li>
+          <li><strong>Ink:</strong> Bottled ink, sumi ink, or water-based ink</li>
+          <li><strong>Paper:</strong> Smooth, bleed-proof paper; parchment; rice paper</li>
+          <li><strong>Guidelines:</strong> Rulers, templates, grid sheets</li>
+        </ul>
+      </div>
+      <div class="flex-image" data-aos="fade-left">
+        <img
+          src="tools.webp"
+          alt="Calligraphy Tools" />
+      </div>
+    </section>
+
+    <h2 data-aos="fade-left">🎨 Cultural Importance</h2>
+    <p data-aos="fade-right">Calligraphy is a sacred and cultural art practiced worldwide.</p>
+    <ul data-aos="fade-up" data-aos-delay="100">
+      <li><strong>In the Islamic world, </strong> calligraphy became the highest form of visual art due to religious restrictions on imagery.</li>
+      <li><strong>In East Asia, </strong> it is not only a writing form but a spiritual practice, valued as highly as painting or poetry.</li>
+      <li><strong>In the West, </strong> it symbolized learning and artistry in manuscripts and now thrives in wedding invitations, branding, and design.</li>
+      <li><strong>In South Asia,  </strong> calligraphy bridged linguistic and religious traditions — especially during the Mughal and Persian periods.</li>
+    </ul>
+    
+    <!-- Floating calligraphy elements -->
+    <div class="floating-calligraphy" style="top:60%; left:15%;">美</div>
+    <div class="floating-calligraphy" style="top:30%; left:85%;">Art</div>
+
+    <h2 data-aos="fade-left">📈 Calligraphy Today</h2>
+    <p data-aos="fade-right">Modern calligraphy is a thriving global art that combines traditional methods with contemporary styles. It's used in:</p>
+    <ul class="modern-uses" data-aos="fade-up" data-aos-delay="100">
+      <li data-aos="fade-right" data-aos-delay="200"><i class="fas fa-heart"></i> Weddings and events</li>
+      <li data-aos="fade-right" data-aos-delay="250"><i class="fas fa-tag"></i> Branding and logos</li>
+      <li data-aos="fade-right" data-aos-delay="300"><i class="fas fa-share-alt"></i> Social media content</li>
+      <li data-aos="fade-right" data-aos-delay="350"><i class="fas fa-paint-brush"></i> Tattoo designs</li>
+      <li data-aos="fade-right" data-aos-delay="400"><i class="fas fa-book"></i> Journaling and bullet journaling</li>
+      <li data-aos="fade-right" data-aos-delay="450"><i class="fas fa-home"></i> DIY and decor</li>
+    </ul>
+    <p data-aos="fade-up" data-aos-delay="500">Platforms like Instagram, Etsy, and Pinterest have helped bring calligraphy into everyday creative culture.</p>
+
+    <div class="modern-image" data-aos="zoom-in" data-aos-delay="600">
+      <img src="events.webp" alt="Calligraphy tools and designs" />
+      <div class="image-caption" data-aos="fade-up" data-aos-delay="800">
+        Modern calligraphy applications in design and lifestyle
+      </div>
+    </div>
+  </section>
+
+  <section class="journey-section" data-aos="fade-up">
+    <div class="journey-content">
+      <h2 data-aos="fade-right">Our Journey</h2>
+      <p data-aos="fade-right">QuickCalligraphy began as a passion project and grew into a vibrant community.</p>
+      <p data-aos="fade-right">We bridge ancient elegance with modern flair through workshops, online tutorials, and
+        design inspiration.</p>
+      <a href="contact.html" class="btn" data-aos="fade-up" data-aos-delay="200">Join Our Community</a>
+    </div>
+    <div class="journey-image" data-aos="fade-left">
+      <img src="ourjourneey.jpg" alt="Our Calligraphy Journey" />
+    </div>
+    
+    <!-- Floating calligraphy elements -->
+    <div class="floating-calligraphy" style="top:20%; left:10%;">書</div>
+    <div class="floating-calligraphy" style="top:80%; left:90%;">線</div>
+  </section>
+
+  <footer data-aos="fade-up">
+    <div class="footer-content">
+      <p>&copy; 2025 QuickCalligraphy. All rights reserved by Qureshi Sahab.</p>
+      <div class="social-links">
+        <a href="#" class="social-icon" data-aos="fade-up" data-aos-delay="100"><i class="fab fa-instagram"></i></a>
+        <a href="#" class="social-icon" data-aos="fade-up" data-aos-delay="200"><i class="fab fa-pinterest"></i></a>
+        <a href="#" class="social-icon" data-aos="fade-up" data-aos-delay="300"><i class="fab fa-youtube"></i></a>
+        <a href="#" class="social-icon" data-aos="fade-up" data-aos-delay="400"><i class="fab fa-etsy"></i></a>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // Create floating particles
+    function createParticles() {
+      const particlesContainer = document.getElementById('particles');
+      const particleCount = 30;
+      
+      for (let i = 0; i < particleCount; i++) {
+        const particle = document.createElement('div');
+        particle.classList.add('particle');
+        
+        // Random size between 2px and 6px
+        const size = Math.random() * 4 + 2;
+        particle.style.width = `${size}px`;
+        particle.style.height = `${size}px`;
+        
+        // Random position
+        particle.style.left = `${Math.random() * 100}%`;
+        particle.style.top = `${Math.random() * 100}%`;
+        
+        // Random animation duration between 10s and 30s
+        const duration = Math.random() * 20 + 10;
+        particle.style.animationDuration = `${duration}s`;
+        
+        // Random delay
+        particle.style.animationDelay = `${Math.random() * 10}s`;
+        
+        particlesContainer.appendChild(particle);
+      }
+    }
+
+    // Scroll progress indicator
+    function updateScrollProgress() {
+      const scrollProgress = document.getElementById('scrollProgress');
+      const scrollTop = document.documentElement.scrollTop;
+      const scrollHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+      const scrollPercentage = (scrollTop / scrollHeight) * 100;
+      scrollProgress.style.width = `${scrollPercentage}%`;
+    }
+
+    function toggleTheme() {
+      const currentTheme = document.documentElement.getAttribute('data-theme');
+      const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+      document.documentElement.setAttribute('data-theme', newTheme);
+      localStorage.setItem('theme', newTheme);
+      
+      // Add animation to theme toggle
+      const toggleBtn = document.querySelector('.toggle-mode');
+      toggleBtn.style.transform = 'scale(1.2)';
+      setTimeout(() => {
+        toggleBtn.style.transform = 'scale(1)';
+      }, 300);
+    }
+
+    window.addEventListener('DOMContentLoaded', () => {
+      const savedTheme = localStorage.getItem('theme') || 'light';
+      document.documentElement.setAttribute('data-theme', savedTheme);
+      
+      // Create particles
+      createParticles();
+      
+      // Set up scroll progress indicator
+      window.addEventListener('scroll', updateScrollProgress);
+      updateScrollProgress();
+
+      // Add hover effects to all interactive elements
+      document.querySelectorAll('a, button, .history-section, .type-section, .flex-section, .journey-section, .modern-uses li').forEach(el => {
+        el.addEventListener('mouseenter', () => {
+          el.style.transform = 'scale(1.02)';
+          el.style.transition = 'all 0.3s ease';
+        });
+        el.addEventListener('mouseleave', () => {
+          el.style.transform = 'scale(1)';
+        });
+      });
+    });
+  </script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
+  <script>
+    AOS.init({ 
+      duration: 1000, 
+      once: true,
+      easing: 'ease-out-back',
+      offset: 120
+    });
+  </script>
+</body>
+
+</html>
