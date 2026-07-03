@@ -14,6 +14,8 @@ Clean multi-page UI · Interactive theme switching · Tailored curricula for Kid
 [![JavaScript](https://img.shields.io/badge/JavaScript-ES6-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black)](https://developer.mozilla.org/en-US/docs/Web/JavaScript)
 [![Font Awesome](https://img.shields.io/badge/Font_Awesome-6-528DD7?style=for-the-badge&logo=font-awesome&logoColor=white)](https://fontawesome.com)
 
+### 🌐 [**Live Demo → quickcalligraphy.vercel.app**](https://anasq2003.github.io/Calligraphy/)
+
 </div>
 
 ---
@@ -95,51 +97,123 @@ The site utilizes a premium dark mode theme switcher, CSS keyframe animations (i
 
 > All previews are taken from the live application showing the premium dark theme.
 
+---
+
 ### 1. Home & About Us
 
-| Home Welcome Hero | Home Categories Section | Home Quick Contact Details |
-|:---:|:---:|:---:|
-| ![Home Hero](https://raw.githubusercontent.com/AnasQ2003/Calligraphy/main/1.png) | ![Home Categories](https://raw.githubusercontent.com/AnasQ2003/Calligraphy/main/2.png) | ![Home Contact](https://raw.githubusercontent.com/AnasQ2003/Calligraphy/main/3.png) |
+**Home Welcome Hero**
+![Home Hero](https://raw.githubusercontent.com/AnasQ2003/Calligraphy/main/1.png)
 
-| About Us Page Hero | History & Origin section |
-|:---:|:---:|
-| ![About Hero](https://raw.githubusercontent.com/AnasQ2003/Calligraphy/main/4.png) | ![History & Origin](https://raw.githubusercontent.com/AnasQ2003/Calligraphy/main/5.png) |
+---
+
+**Home Categories Section**
+![Home Categories](https://raw.githubusercontent.com/AnasQ2003/Calligraphy/main/2.png)
+
+---
+
+**Home Quick Contact Details**
+![Home Contact](https://raw.githubusercontent.com/AnasQ2003/Calligraphy/main/3.png)
+
+---
+
+**About Us Page Hero**
+![About Hero](https://raw.githubusercontent.com/AnasQ2003/Calligraphy/main/4.png)
+
+---
+
+**History & Origin Section**
+![History & Origin](https://raw.githubusercontent.com/AnasQ2003/Calligraphy/main/5.png)
 
 ---
 
 ### 2. Categories & Specialized Paths
 
-| Categories Overview | Calligraphy Styles List |
-|:---:|:---:|
-| ![Categories Page](https://raw.githubusercontent.com/AnasQ2003/Calligraphy/main/6.png) | ![Styles Grid](https://raw.githubusercontent.com/AnasQ2003/Calligraphy/main/7.png) |
+**Categories Overview**
+![Categories Page](https://raw.githubusercontent.com/AnasQ2003/Calligraphy/main/6.png)
 
-| Kids Calligraphy Hero | Kids Styles Section | Kids Benefits Grid | Kids Workshop CTA |
-|:---:|:---:|:---:|:---:|
-| ![Kids Hero](https://raw.githubusercontent.com/AnasQ2003/Calligraphy/main/8.png) | ![Kids Styles](https://raw.githubusercontent.com/AnasQ2003/Calligraphy/main/9.png) | ![Kids Benefits](https://raw.githubusercontent.com/AnasQ2003/Calligraphy/main/10.png) | ![Kids CTA](https://raw.githubusercontent.com/AnasQ2003/Calligraphy/main/11.png) |
+---
 
-| Teens & Adults Hero | Elders Calligraphy Hero |
-|:---:|:---:|
-| ![Teens Hero](https://raw.githubusercontent.com/AnasQ2003/Calligraphy/main/12.png) | ![Elders Hero](https://raw.githubusercontent.com/AnasQ2003/Calligraphy/main/13.png) |
+**Calligraphy Styles List**
+![Styles Grid](https://raw.githubusercontent.com/AnasQ2003/Calligraphy/main/7.png)
+
+---
+
+**Kids Calligraphy Hero**
+![Kids Hero](https://raw.githubusercontent.com/AnasQ2003/Calligraphy/main/8.png)
+
+---
+
+**Kids Styles Section**
+![Kids Styles](https://raw.githubusercontent.com/AnasQ2003/Calligraphy/main/9.png)
+
+---
+
+**Kids Benefits Grid**
+![Kids Benefits](https://raw.githubusercontent.com/AnasQ2003/Calligraphy/main/10.png)
+
+---
+
+**Kids Workshop CTA**
+![Kids CTA](https://raw.githubusercontent.com/AnasQ2003/Calligraphy/main/11.png)
+
+---
+
+**Teens & Adults Hero**
+![Teens Hero](https://raw.githubusercontent.com/AnasQ2003/Calligraphy/main/12.png)
+
+---
+
+**Elders Calligraphy Hero**
+![Elders Hero](https://raw.githubusercontent.com/AnasQ2003/Calligraphy/main/13.png)
 
 ---
 
 ### 3. Gallery & Artist Showcases
 
-| Gallery Page Hero | 3x3 Artwork Showcase Grid | Featured Artists Showcase |
-|:---:|:---:|:---:|
-| ![Gallery Hero](https://raw.githubusercontent.com/AnasQ2003/Calligraphy/main/14.png) | ![Gallery Grid](https://raw.githubusercontent.com/AnasQ2003/Calligraphy/main/15.png) | ![Featured Artists](https://raw.githubusercontent.com/AnasQ2003/Calligraphy/main/16.png) |
+**Gallery Page Hero**
+![Gallery Hero](https://raw.githubusercontent.com/AnasQ2003/Calligraphy/main/14.png)
 
-| Calligraphy Types Details | Downloads & Tutorials Section |
-|:---:|:---:|
-| ![Calligraphy Types](https://raw.githubusercontent.com/AnasQ2003/Calligraphy/main/17.png) | ![Downloads](https://raw.githubusercontent.com/AnasQ2003/Calligraphy/main/18.png) |
+---
+
+**3x3 Artwork Showcase Grid**
+![Gallery Grid](https://raw.githubusercontent.com/AnasQ2003/Calligraphy/main/15.png)
+
+---
+
+**Featured Artists Showcase**
+![Featured Artists](https://raw.githubusercontent.com/AnasQ2003/Calligraphy/main/16.png)
+
+---
+
+**Calligraphy Types Details**
+![Calligraphy Types](https://raw.githubusercontent.com/AnasQ2003/Calligraphy/main/17.png)
+
+---
+
+**Downloads & Tutorials Section**
+![Downloads](https://raw.githubusercontent.com/AnasQ2003/Calligraphy/main/18.png)
 
 ---
 
 ### 4. Contact Us & FAQs
 
-| Contact Page Hero | Send Us A Message Form | FAQ Accordion & Location Cards | Testimonials & Newsletter |
-|:---:|:---:|:---:|:---:|
-| ![Contact Hero](https://raw.githubusercontent.com/AnasQ2003/Calligraphy/main/19.png) | ![Contact Form](https://raw.githubusercontent.com/AnasQ2003/Calligraphy/main/20.png) | ![FAQs & Location](https://raw.githubusercontent.com/AnasQ2003/Calligraphy/main/21.png) | ![Testimonials](https://raw.githubusercontent.com/AnasQ2003/Calligraphy/main/22.png) |
+**Contact Page Hero**
+![Contact Hero](https://raw.githubusercontent.com/AnasQ2003/Calligraphy/main/19.png)
+
+---
+
+**Send Us A Message Form**
+![Contact Form](https://raw.githubusercontent.com/AnasQ2003/Calligraphy/main/20.png)
+
+---
+
+**FAQ Accordion & Location Cards**
+![FAQs & Location](https://raw.githubusercontent.com/AnasQ2003/Calligraphy/main/21.png)
+
+---
+
+**Testimonials & Newsletter**
+![Testimonials](https://raw.githubusercontent.com/AnasQ2003/Calligraphy/main/22.png)
 
 ---
 
