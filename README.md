@@ -273,7 +273,7 @@ Since the project is built purely with standard web technologies, there are no p
 
 <div align="center">
 
-Made with ⚡ 
+Made with ⚡ by [AnasQ2003](https://github.com/AnasQ2003)
 
 ⭐ If you find this project useful, please give it a star!
 
