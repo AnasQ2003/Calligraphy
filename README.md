@@ -193,4 +193,14 @@ Since the project is built purely with standard web technologies, there are no p
 
 ## 📄 License
 
-This project is open-source and available under the [MIT License](LICENSE).
+© 2026 **Anas Ahmed Qureshi**. All Rights Reserved.
+
+---
+
+<div align="center">
+
+Made with ⚡ 
+
+⭐ If you find this project useful, please give it a star!
+
+</div>
