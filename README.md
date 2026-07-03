@@ -14,7 +14,7 @@ Clean multi-page UI · Interactive theme switching · Tailored curricula for Kid
 [![JavaScript](https://img.shields.io/badge/JavaScript-ES6-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black)](https://developer.mozilla.org/en-US/docs/Web/JavaScript)
 [![Font Awesome](https://img.shields.io/badge/Font_Awesome-6-528DD7?style=for-the-badge&logo=font-awesome&logoColor=white)](https://fontawesome.com)
 
-### 🌐 [**Live Demo → quickcalligraphy.vercel.app**](https://anasq2003.github.io/Calligraphy/)
+### 🌐 [**Live Demo → quickcalligraphy.vercel.app**](https://calligraphy1234.netlify.app/)
 
 </div>
 
