@@ -1,117 +1,196 @@
-# Calligraphy
-Welcome to our world of Calligraphy – the art of beautiful handwriting. Rooted in history and culture, calligraphy blends visual art with written language, transforming simple letters into elegant expressions. From ancient scripts carved in stone to intricate modern designs created with pen and ink.
-Introduction
+<div align="center">
 
+<img src="https://raw.githubusercontent.com/AnasQ2003/Calligraphy/main/logo.png" width="120" alt="QuickCalligraphy Logo" />
 
-The thirst for learning, upgrading technical skills and applying the concepts in real life environment at a fast pace is what the industry demands from IT professionals today. However busy work schedules, far-flung locations, unavailability of convenient time-slots pose as major barriers when it comes to applying the concepts into realism.  And hence the need to look out for alternative means of implementation in the form of laddered approach. 
+# ✒️ QuickCalligraphy
 
-The above truly pose as constraints especially for our students too! With their busy schedules, it is indeed difficult for our students to keep up with the genuine and constant need for integrated application which can be seen live especially so in the field of IT education where technology can change on the spur of a moment. Well, technology does come to our rescue at such times!!
+### *The art of beautiful handwriting at your fingertips.*
 
-Keeping the above in mind and in tune with our constant endeavour to use Technology in our training model, we at Aptech have thought of revolutionizing the way our students learn and implement the concepts using tools themselves by providing a live and synchronous eProject   learning environment!
+**A modern, interactive, and responsive web platform designed to make learning calligraphy accessible to everyone.**  
+Clean multi-page UI · Interactive theme switching · Tailored curricula for Kids, Teens, and Elders · Gallery & Artist showcases · Built-in tutorials
 
-So what is this eProject?
+[![HTML5](https://img.shields.io/badge/HTML-5-E34F26?style=for-the-badge&logo=html5&logoColor=white)](https://developer.mozilla.org/en-US/docs/Web/HTML)
+[![CSS3](https://img.shields.io/badge/CSS-3-1572B6?style=for-the-badge&logo=css3&logoColor=white)](https://developer.mozilla.org/en-US/docs/Web/CSS)
+[![JavaScript](https://img.shields.io/badge/JavaScript-ES6-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black)](https://developer.mozilla.org/en-US/docs/Web/JavaScript)
+[![Font Awesome](https://img.shields.io/badge/Font_Awesome-6-528DD7?style=for-the-badge&logo=font-awesome&logoColor=white)](https://fontawesome.com)
 
-eProject is a step-by-step learning environment that closely simulates the classroom and Lab based learning environment into actual implementation. It is a project implementation at your fingertips!! An electronic, live juncture on the machine that allows you to 
+</div>
 
-o	Practice step by step i.e. laddered approach.
-o	Build a larger more robust application.
-o	Usage of certain utilities in applications designed by user.
-o	Single program to unified code leading to a complete application.
-o	Learn implementation of concepts in a phased manner.
-o	Enhance skills and add value.
-o	Work on real life projects. 
-o	Give a real life scenario and help to create applications more complicated and useful.
-o	Mentoring through email support.
+---
 
+## 📋 Table of Contents
 
-The students at the centre are expected to complete this eProject and send complete project along with the documentation to eProjects Team
+- [Overview](#-overview)
+- [Key Features](#-key-features)
+- [Page Breakdown](#-page-breakdown)
+- [Screenshots](#-screenshots)
+- [Tech Stack & Assets](#-tech-stack--assets)
+- [Project Structure](#-project-structure)
+- [Getting Started](#-getting-started)
+- [License](#-license)
 
+---
 
-Looking forward to a positive response from your end!!
- 
+## 🌟 Overview
 
-Objectives of the project
+**QuickCalligraphy** is an educational, interactive website created to help users discover and master the art of calligraphy. It is structured around the unique needs of different age groups:
+- **Kids (Easy)**: Playful, screen-free focus, basic letter forms.
+- **Teens & Adults (Intermediate)**: Technical stroke development, brush lettering, and copperplate.
+- **Elders (Advanced)**: High-contrast layouts, therapeutic and meditative scripts (Italic, Thuluth, Kufic).
 
+The site utilizes a premium dark mode theme switcher, CSS keyframe animations (including floating background particles), responsive layouts, interactive menus, FAQ accordion modules, and direct download links for calligraphy guidelines.
 
-The Objective of this program is to give a sample project to work on real life projects. These applications help you build a larger more robust application. 
+---
 
-The objective is not to teach you JavaScript/Dreamweaver but to provide you with a real life scenario and help you create basic applications using the tools.
+## ✨ Key Features
 
-You can revise the chapters before you start with the project. 
+- **🌓 Interactive Theme Switcher**: Instantly switch between custom Light and Dark themes, changing background gradients, card layouts, and borders.
+- **✨ Particle Animation**: Dynamic background floating particles rendered purely using CSS keyframe animations.
+- **📂 Specialized Curriculum Pages**: Custom resources, guidelines, and styling optimized for children, teenagers, and seniors.
+- **🖼️ Art Gallery & Showcases**: A dedicated gallery displaying diverse calligraphic styles along with profiles of legendary artists (e.g., Wang Xizhi, Ibn Muqlah).
+- **📋 Interactive FAQs & Forms**: Accordion FAQ blocks with smooth toggle transitions and validation-ready contact forms.
 
-This project is meant for students who have completed the module of HTML5. These programs should be done in the Lab sessions with assistance of the faculty if required.
+---
 
-It is very essential that a student has a clear understanding of the subject. Students should go through the project and solve the assignments as per requirements given. 
+## 📄 Page Breakdown
 
-Kindly get back to eProjects Team in case of any doubts regarding the application or its objectives.
+### 🏠 Home Page (`index.html`)
+- Welcome hero header with smooth call-to-action transitions.
+- Age-group directory cards redirecting to specific learning paths.
+- Embedded video preview and a quick contact segment.
 
+### ℹ️ About Us Page (`about.html`)
+- Visual introduction to the history, meaning, and cultural significance of calligraphy.
+- Overview of major global traditions (Western, Oriental, and Arabic/Islamic calligraphy).
 
+### 📂 Categories Page (`categories.html`)
+- Grid cards detailing 8 major calligraphy styles from around the world.
+- Smooth hover transition states and direct links to sub-guides.
 
+### 👶 Kids Calligraphy (`kids.html`)
+- Simplified learning methodologies like Faux Calligraphy and Bubble Letters.
+- Parent-teacher testimonials and interactive workshop sign-up options.
 
- 
+### 🧑 Teens & Adults Calligraphy (`normal.html`)
+- Dedicated guides for Brush Lettering, Copperplate, Roman, and Artistic styles.
+- Material checklists, difficulty ratings, and downloadable stroke guides.
 
-Problem Statement
+### 🧓 Elders Calligraphy (`elders.html`)
+- High-contrast typography and layouts for ease of reading.
+- Focuses on traditional scripts like Arabic Kufic, Naskh, and Thuluth.
 
-Calligraphy is the art of forming beautiful symbols by hand and arranging them well. It's a set of skills and techniques for positioning and inscribing words so they show integrity, harmony, some sort of ancestry, rhythm and creative fire.
+### 🖼️ Gallery (`gallery.html`)
+- A beautiful 3x3 grid display of professional calligraphy samples.
+- Featured Artists section highlighting profiles of historically significant calligraphers.
+- Free PDF downloads for basic guides and advanced lettering grids.
 
-Calligraphy can be taken to expert heights. Calligraphy skills are used in many areas of art and graphics, from greetings card design to tattoo artistry. But you don't have to be a pro to express your creative self and have a pleasant effect on the viewer or recipient of your efforts.
+### 📞 Contact Us Page (`contact.html`)
+- A complete contact and feedback form with interactive fields.
+- FAQ accordion block answering common questions about classes and materials.
+- Localized contact cards with support details and address instructions.
 
-Essentially, there are three main types of calligraphy: Western, Arabic, and Oriental. Within each style, there may be several lettering sub-styles or hands. Seeing examples of these styles can help you perfect your art and get inspired to create something amazing.
+---
 
-Here we are aiming to design a website “QuickCalligraphy” which will provide an easy way to learn calligraphy and provide the basic other details about the art.
- 
-Requirement Specification:
+## 📱 Screenshots
 
-The Web site is to be created based on the following requirements.
+> All previews are taken from the live application showing the premium dark theme.
 
-1)	The home page must describe the keywords or highlight the calligraphy designs with all navigation links defined.
-2)	The site should provide the brief information about calligraphy as from where it originated etc.
-3)	There should be a well-designed menu with necessary sub menu options.
-4)	There should be various categories (forms and styles) like easy for kids, complex for elders and so on
-5)	There should also be categories of designs as Arabic, Indic, Greek etc(more categories can be added)
-6)	Proper description of the letters and fonts must be added in the website.
-7)	Contact us page: contact us details with location should be displayed using GeoLocation API (eg. GoogleMaps).
-8)	About Us
-9)	Feedback form
-10)	Gallery section should be added.
-11)	Color combination must be uniform throughout the project.
-12)	Navigation must be smooth.
+### 1. Home & About Us
 
- 
+| Home Welcome Hero | Home Categories Section | Home Quick Contact Details |
+|:---:|:---:|:---:|
+| ![Home Hero](https://raw.githubusercontent.com/AnasQ2003/Calligraphy/main/1.png) | ![Home Categories](https://raw.githubusercontent.com/AnasQ2003/Calligraphy/main/2.png) | ![Home Contact](https://raw.githubusercontent.com/AnasQ2003/Calligraphy/main/3.png) |
 
-Hardware/ Software Requirements
+| About Us Page Hero | History & Origin section |
+|:---:|:---:|
+| ![About Hero](https://raw.githubusercontent.com/AnasQ2003/Calligraphy/main/4.png) | ![History & Origin](https://raw.githubusercontent.com/AnasQ2003/Calligraphy/main/5.png) |
 
+---
 
-Hardware 
-•	A minimum computer system that will help you access all the tools in the courses is a Pentium 166 or better
-•	64 Megabytes of RAM or better
+### 2. Categories & Specialized Paths
 
+| Categories Overview | Calligraphy Styles List |
+|:---:|:---:|
+| ![Categories Page](https://raw.githubusercontent.com/AnasQ2003/Calligraphy/main/6.png) | ![Styles Grid](https://raw.githubusercontent.com/AnasQ2003/Calligraphy/main/7.png) |
 
-Software [Either or Combination as per Course/Sem]
-•	Notepad/HTML editor/CoffeeCup
-•	Angular / Angular JS / React / BootStrap
-•	Dreamweaver / Figma
-•	MS IE / Chrome / FireFox / Netscape /MS Edge
+| Kids Calligraphy Hero | Kids Styles Section | Kids Benefits Grid | Kids Workshop CTA |
+|:---:|:---:|:---:|:---:|
+| ![Kids Hero](https://raw.githubusercontent.com/AnasQ2003/Calligraphy/main/8.png) | ![Kids Styles](https://raw.githubusercontent.com/AnasQ2003/Calligraphy/main/9.png) | ![Kids Benefits](https://raw.githubusercontent.com/AnasQ2003/Calligraphy/main/10.png) | ![Kids CTA](https://raw.githubusercontent.com/AnasQ2003/Calligraphy/main/11.png) |
 
-![image alt](https://github.com/AnasQ2003/Calligraphy/blob/f8e0c36cb9b325a9d6e034e220e7b4d74369ae84/1.png)
-![image alt](https://github.com/AnasQ2003/Calligraphy/blob/f8e0c36cb9b325a9d6e034e220e7b4d74369ae84/2.png)
-![image alt](https://github.com/AnasQ2003/Calligraphy/blob/f8e0c36cb9b325a9d6e034e220e7b4d74369ae84/3.png)
-![image alt](https://github.com/AnasQ2003/Calligraphy/blob/f8e0c36cb9b325a9d6e034e220e7b4d74369ae84/4.png)
-![image alt](https://github.com/AnasQ2003/Calligraphy/blob/f8e0c36cb9b325a9d6e034e220e7b4d74369ae84/5.png)
-![image alt](https://github.com/AnasQ2003/Calligraphy/blob/f8e0c36cb9b325a9d6e034e220e7b4d74369ae84/6.png)
-![image alt](https://github.com/AnasQ2003/Calligraphy/blob/f8e0c36cb9b325a9d6e034e220e7b4d74369ae84/7.png)
-![image alt](https://github.com/AnasQ2003/Calligraphy/blob/f8e0c36cb9b325a9d6e034e220e7b4d74369ae84/8.png)
-![image alt](https://github.com/AnasQ2003/Calligraphy/blob/f8e0c36cb9b325a9d6e034e220e7b4d74369ae84/9.png)
-![image alt](https://github.com/AnasQ2003/Calligraphy/blob/f8e0c36cb9b325a9d6e034e220e7b4d74369ae84/10.png)
-![image alt](https://github.com/AnasQ2003/Calligraphy/blob/f8e0c36cb9b325a9d6e034e220e7b4d74369ae84/11.png)
-![image alt](https://github.com/AnasQ2003/Calligraphy/blob/f8e0c36cb9b325a9d6e034e220e7b4d74369ae84/12.png)
-![image alt](https://github.com/AnasQ2003/Calligraphy/blob/f8e0c36cb9b325a9d6e034e220e7b4d74369ae84/13.png)
-![image alt](https://github.com/AnasQ2003/Calligraphy/blob/f8e0c36cb9b325a9d6e034e220e7b4d74369ae84/14.png)
-![image alt](https://github.com/AnasQ2003/Calligraphy/blob/f8e0c36cb9b325a9d6e034e220e7b4d74369ae84/15.png)
-![image alt](https://github.com/AnasQ2003/Calligraphy/blob/f8e0c36cb9b325a9d6e034e220e7b4d74369ae84/16.png)
-![image alt](https://github.com/AnasQ2003/Calligraphy/blob/f8e0c36cb9b325a9d6e034e220e7b4d74369ae84/18.png)
-![image alt](https://github.com/AnasQ2003/Calligraphy/blob/f8e0c36cb9b325a9d6e034e220e7b4d74369ae84/19.png)
-![image alt](https://github.com/AnasQ2003/Calligraphy/blob/f8e0c36cb9b325a9d6e034e220e7b4d74369ae84/20.png)
-![image alt](https://github.com/AnasQ2003/Calligraphy/blob/f8e0c36cb9b325a9d6e034e220e7b4d74369ae84/21.png)
-![image alt](https://github.com/AnasQ2003/Calligraphy/blob/f8e0c36cb9b325a9d6e034e220e7b4d74369ae84/22.png)
+| Teens & Adults Hero | Elders Calligraphy Hero |
+|:---:|:---:|
+| ![Teens Hero](https://raw.githubusercontent.com/AnasQ2003/Calligraphy/main/12.png) | ![Elders Hero](https://raw.githubusercontent.com/AnasQ2003/Calligraphy/main/13.png) |
 
+---
+
+### 3. Gallery & Artist Showcases
+
+| Gallery Page Hero | 3x3 Artwork Showcase Grid | Featured Artists Showcase |
+|:---:|:---:|:---:|
+| ![Gallery Hero](https://raw.githubusercontent.com/AnasQ2003/Calligraphy/main/14.png) | ![Gallery Grid](https://raw.githubusercontent.com/AnasQ2003/Calligraphy/main/15.png) | ![Featured Artists](https://raw.githubusercontent.com/AnasQ2003/Calligraphy/main/16.png) |
+
+| Calligraphy Types Details | Downloads & Tutorials Section |
+|:---:|:---:|
+| ![Calligraphy Types](https://raw.githubusercontent.com/AnasQ2003/Calligraphy/main/17.png) | ![Downloads](https://raw.githubusercontent.com/AnasQ2003/Calligraphy/main/18.png) |
+
+---
+
+### 4. Contact Us & FAQs
+
+| Contact Page Hero | Send Us A Message Form | FAQ Accordion & Location Cards | Testimonials & Newsletter |
+|:---:|:---:|:---:|:---:|
+| ![Contact Hero](https://raw.githubusercontent.com/AnasQ2003/Calligraphy/main/19.png) | ![Contact Form](https://raw.githubusercontent.com/AnasQ2003/Calligraphy/main/20.png) | ![FAQs & Location](https://raw.githubusercontent.com/AnasQ2003/Calligraphy/main/21.png) | ![Testimonials](https://raw.githubusercontent.com/AnasQ2003/Calligraphy/main/22.png) |
+
+---
+
+## 🛠️ Tech Stack & Assets
+
+### Frontend Technologies
+- **HTML5**: Structured semantic web layout.
+- **CSS3**: Advanced layouts (Flexbox/Grid), customized transitions, and keyframe animations.
+- **Vanilla JavaScript (ES6)**: State management for theme settings (light/dark mode toggle) and accordion interaction logic.
+- **FontAwesome v6.4**: Vector icons for contacts, navigation, and features.
+- **Google Fonts**: Modern, premium typography integrated natively.
+
+### Media & Document Assets
+- **Video Overviews**: Pre-rendered guidelines and demonstrations (`kidsvideo.mp4`, `normalvideo.mp4`, `eldersvideo.mp4`).
+- **Interactive Guides**: Core learning resources packaged inside the project (`Teaching Calligraphy in a Modern Way, Onur Alka.pdf`, `calligraphy.pdf`).
+
+---
+
+## 📁 Project Structure
+
+```
+Calligraphy/
+├── 📄 index.html              # Home Page
+├── 📄 about.html              # About Us Page
+├── 📄 categories.html         # General Styles & Categories
+├── 📄 kids.html               # Kids Calligraphy Hub
+├── 📄 normal.html             # Teens & Adults Calligraphy Hub
+├── 📄 elders.html             # Seniors & Elders Calligraphy Hub
+├── 📄 gallery.html            # Showcase Gallery & Artist Profiles
+├── 📄 contact.html            # Contact Form & FAQs
+├── 📄 README.md               # Repository Documentation
+├── 📁 screenshots/            # Previews and layouts
+└── 📁 assets/                 # Embedded images, PDFs, and videos
+```
+
+---
+
+## 🚀 Getting Started
+
+Since the project is built purely with standard web technologies, there are no package installations required.
+
+1. **Clone the Repository**:
+   ```bash
+   git clone https://github.com/AnasQ2003/Calligraphy.git
+   cd Calligraphy
+   ```
+2. **Open the App**:
+   Simply open `index.html` in any web browser of your choice, or use a local development server like **Live Server** in VS Code.
+
+---
+
+## 📄 License
+
+This project is open-source and available under the [MIT License](LICENSE).
