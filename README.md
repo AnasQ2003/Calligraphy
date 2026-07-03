@@ -267,7 +267,7 @@ Since the project is built purely with standard web technologies, there are no p
 
 ## 📄 License
 
-© 2026 **Anas Ahmed Qureshi**. All Rights Reserved.
+© Calligraphy---2026 **Anas Ahmed Qureshi**. All Rights Reserved.
 
 ---
 
