@@ -270,7 +270,7 @@ Since the project is built purely with standard web technologies, there are no p
 ```
 MIT License
 
-Copyright (c) Calligraphy---2026 AnasQ2003
+Copyright (c) Calligraphy --- 2026 AnasQ2003
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
